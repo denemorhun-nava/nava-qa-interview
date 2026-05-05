@@ -34,7 +34,7 @@ You are testing the login page for an application.
 
 ## User Interface
 
-Open `https://denemorhun-nava.github.io/nava-qa-interview/` in your browser to interact with the login page.
+Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
 
 ### Partial HTML
 
@@ -94,6 +94,6 @@ TABLE Users (
 ```markdown
 ## Screenshot
 
-![Login page](screenshot.png)
+![Login page](UI.png)
 ```
 
