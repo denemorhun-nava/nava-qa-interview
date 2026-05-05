@@ -61,11 +61,10 @@ Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in y
 </body>
 ```
 
-```markdown
 ## Screenshot
 
 ![Login page](UI.png)
-```
+
 ---
 
 ## API
