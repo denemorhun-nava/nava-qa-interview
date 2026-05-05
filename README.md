@@ -38,7 +38,7 @@ Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in y
 
 ### Partial HTML
 
-````html
+```html
 <body>
   <div class="login-container" data-testid="login-wrapper">
     <h2 id="login-title">Login</h2>
@@ -59,8 +59,13 @@ Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in y
     </form>
   </div>
 </body>
-` `` 
+```
 
+```markdown
+## Screenshot
+
+![Login page](UI.png)
+```
 ---
 
 ## API
@@ -85,15 +90,8 @@ TABLE Users (
     email             VARCHAR(100) UNIQUE NOT NULL,
     password_hash     VARCHAR(255) NOT NULL,
     registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
-)
-` ``  
+) 
 ```
 
 
-
-```markdown
-## Screenshot
-
-![Login page](UI.png)
-```
 
