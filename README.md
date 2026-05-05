@@ -2,7 +2,7 @@
 
 ## Context
 
-You are testing the login page for an application.
+You are testing [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) for an application.
 
 - Login validates the user account through the backend.
 - Users must log in before accessing the dashboard or continuing their main workflow.
