@@ -1,0 +1,137 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap');
+.page { min-height: 520px; display: flex; align-items: center; justify-content: center; background: var(--color-background-tertiary); padding: 3rem 1rem; }
+.login-container { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 2.5rem; width: 100%; max-width: 380px; }
+.nava-logo { margin-bottom: 2rem; }
+.nava-logo svg { width: 72px; height: auto; }
+h2.login-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--color-text-primary); letter-spacing: -0.5px; margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 1.25rem; }
+label.field-label { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+input[type=text], input[type=password] { width: 100%; padding: 0 12px; height: 40px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); font-family: 'DM Mono', monospace; font-size: 14px; color: var(--color-text-primary); outline: none; transition: border-color 0.15s; }
+input[type=text]:focus, input[type=password]:focus { border-color: var(--color-border-primary); box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
+.row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.remember { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.remember input[type=checkbox] { width: 15px; height: 15px; accent-color: #1D9E75; cursor: pointer; margin: 0; }
+.remember span { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-secondary); }
+.link { font-family: 'DM Mono', monospace; font-size: 12px; color: #1D9E75; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; }
+.link:hover { text-decoration: underline; }
+.btn-submit { width: 100%; height: 40px; background: var(--color-text-primary); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: opacity 0.15s; }
+.btn-submit:hover { opacity: 0.82; }
+.btn-submit:active { transform: scale(0.98); }
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+.signup { text-align: center; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-secondary); }
+.error-msg { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-danger); margin-top: -0.75rem; margin-bottom: 1rem; display: none; }
+.dashboard { display: none; min-height: 520px; background: var(--color-background-tertiary); }
+.dash-nav { background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.dash-body { padding: 2rem; }
+.dash-welcome { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+.dash-sub { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 2rem; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+.metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+.metric-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--color-text-secondary); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.metric-value { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: var(--color-text-primary); }
+.dash-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; }
+.dash-card-title { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 1rem; }
+.activity-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-family: 'DM Mono', monospace; font-size: 13px; color: var(--color-text-primary); }
+.activity-row:last-child { border-bottom: none; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; flex-shrink: 0; }
+.activity-time { margin-left: auto; font-size: 11px; color: var(--color-text-secondary); }
+.sign-out { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-secondary); background: none; border: none; cursor: pointer; padding: 0; }
+.sign-out:hover { color: var(--color-text-primary); }
+</style>
+
+<div id="login-page" class="page">
+  <div class="login-container" data-testid="login-wrapper">
+    <div class="nava-logo">
+      <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava">
+        <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
+        <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
+      </svg>
+    </div>
+    <h2 class="login-title" id="login-title">Login</h2>
+    <div class="error-msg" id="error-msg">Incorrect password. Please try again.</div>
+    <form data-testid="login-form" onsubmit="return false;">
+      <div class="form-group">
+        <label class="field-label" id="username-label" for="username">Username</label>
+        <input type="text" id="username" name="username" aria-labelledby="username-label" data-testid="username-field" placeholder="your_username" required>
+      </div>
+      <div class="form-group">
+        <label class="field-label" id="password-label" for="password">Password</label>
+        <input type="password" id="password" name="password" aria-labelledby="password-label" data-testid="password-field" placeholder="••••••••" required>
+      </div>
+      <div class="row">
+        <label class="remember">
+          <input type="checkbox" id="remember-me" name="remember_me" data-testid="remember-me-checkbox">
+          <span>Remember me</span>
+        </label>
+        <button class="link" type="button" data-testid="forgot-username-link">Forgot username?</button>
+      </div>
+      <div class="form-group">
+        <button class="btn-submit" type="submit" data-testid="login-submit-button" onclick="handleLogin()">Sign In</button>
+      </div>
+    </form>
+    <hr class="divider">
+    <p class="signup">No account? <button class="link" type="button" data-testid="signup-link">Sign up</button></p>
+  </div>
+</div>
+
+<div id="dashboard-page" class="dashboard">
+  <nav class="dash-nav">
+    <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava" style="width:56px;height:auto;">
+      <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
+      <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
+    </svg>
+    <button class="sign-out" onclick="handleSignOut()">Sign out</button>
+  </nav>
+  <div class="dash-body">
+    <p class="dash-welcome">Welcome to Nava!</p>
+    <p class="dash-sub">Good to have you back.</p>
+    <div class="metric-grid">
+      <div class="metric"><div class="metric-label">Households served</div><div class="metric-value">50M+</div></div>
+      <div class="metric"><div class="metric-label">Payments disbursed</div><div class="metric-value">$3B+</div></div>
+      <div class="metric"><div class="metric-label">Hours saved</div><div class="metric-value">500K</div></div>
+      <div class="metric"><div class="metric-label">Active projects</div><div class="metric-value">12</div></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-title">Recent activity</div>
+      <div class="activity-row"><div class="dot"></div>VA disability claims pipeline deployed<span class="activity-time">2h ago</span></div>
+      <div class="activity-row"><div class="dot"></div>Illinois IDES portal sprint review<span class="activity-time">Yesterday</span></div>
+      <div class="activity-row"><div class="dot"></div>Nava Labs AI tool beta launched<span class="activity-time">3 days ago</span></div>
+      <div class="activity-row"><div class="dot"></div>SEC enterprise contract awarded<span class="activity-time">1 week ago</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var pwInput = document.getElementById('password');
+
+pwInput.addEventListener('input', function() {
+  var val = pwInput.value;
+  if (/[^a-zA-Z0-9]/.test(val)) {
+    pwInput.type = 'text';
+  } else {
+    pwInput.type = 'password';
+  }
+});
+
+function handleLogin() {
+  var pw = pwInput.value;
+  var err = document.getElementById('error-msg');
+  if (pw === 'secret') {
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('dashboard-page').style.display = 'block';
+    err.style.display = 'none';
+  } else {
+    err.style.display = 'block';
+  }
+}
+
+function handleSignOut() {
+  document.getElementById('dashboard-page').style.display = 'none';
+  document.getElementById('login-page').style.display = 'flex';
+  pwInput.value = '';
+  pwInput.type = 'password';
+}
+</script>
