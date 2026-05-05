@@ -59,7 +59,7 @@ Open `index.html` in your browser to interact with the login page.
     </form>
   </div>
 </body>
-` `` ← (no space)
+` `` 
 
 ---
 
@@ -86,7 +86,7 @@ TABLE Users (
     password_hash     VARCHAR(255) NOT NULL,
     registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
 )
-` ``  ← (no space)
+` ``  
 ```
 
 
@@ -97,4 +97,3 @@ TABLE Users (
 ![Login page](screenshot.png)
 ```
 
-Replace `screenshot.png` with whatever filename you uploaded.
