@@ -22,7 +22,7 @@ You are testing the login page for an application.
 - Masked
 - 10 character limit
 - Only allows alpha characters and these special characters: `!@#$%`
-- typing in -secret- will unlock the dashboard
+- typing in *secret* will unlock the dashboard
 
 ### Page-level validations
 - Validations are performed when **Sign in** is clicked
