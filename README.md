@@ -4,9 +4,9 @@
 
 You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/).
 
-- Login is handled through a mocked backend API and mocked user data store.
+- Login is handled through a mocked backend API and user data store.
 - The login page has frontend field validations for username and password.
-- After the user clicks Sign-in, the mocked backend determines whether the user is allowed to log in.
+- After the user clicks Sign-in, the mocked backend determines whether the user has access.
 - Users may have different account states, such as active, locked, or disabled.
 - Users may have different roles, such as admin or standard user.
 - Users must log in before accessing the dashboard or continuing their main workflow.
@@ -47,25 +47,13 @@ Include field validation, authentication behavior, user account states, role/acc
 - Entering *secret!* in password field will enable user to authenticate
 - Dashboard is standard user view for this exercise
 
----
-
 ### Backend / Account Behavior
 
 The backend may return different outcomes depending on the user account.
-
-Candidates should consider scenarios such as:
-
 - Valid active user
-- Invalid username
-- Invalid password
-- Locked account
-- Disabled account
-- Pending or unverified account
-- Expired account
+- Locked/Disabled account
 - Different user roles or account types
-- User authenticated successfully but not authorized for the dashboard
 - Token-based login
-- Expired or invalid token
 
 ## Screenshot
 
@@ -73,7 +61,7 @@ Candidates should consider scenarios such as:
 
 ---
 
-### Partial HTML
+### Partial Login Page HTML
 
 ```html
 <body>
@@ -117,7 +105,7 @@ TABLE Users (
 ) 
 ```
 
-## User Interface
+## Application
 
 Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
 
