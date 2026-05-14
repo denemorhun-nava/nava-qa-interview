@@ -2,44 +2,48 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap');
-.page { min-height: 520px; display: flex; align-items: center; justify-content: center; background: var(--color-background-tertiary); padding: 3rem 1rem; }
-.login-container { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 2.5rem; width: 100%; max-width: 380px; }
+.page { min-height: 520px; display: flex; align-items: center; justify-content: center; background: #f5f4f0; padding: 3rem 1rem; }
+.login-container { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 2.5rem; width: 100%; max-width: 380px; }
 .nava-logo { margin-bottom: 2rem; }
 .nava-logo svg { width: 72px; height: auto; }
-h2.login-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--color-text-primary); letter-spacing: -0.5px; margin-bottom: 1.5rem; }
+h2.login-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; letter-spacing: -0.5px; margin-bottom: 1.5rem; }
 .form-group { margin-bottom: 1.25rem; }
-label.field-label { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 6px; font-family: 'DM Mono', monospace; }
-input[type=text], input[type=password] { width: 100%; padding: 0 12px; height: 40px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); font-family: 'DM Mono', monospace; font-size: 14px; color: var(--color-text-primary); outline: none; transition: border-color 0.15s; }
-input[type=text]:focus, input[type=password]:focus { border-color: var(--color-border-primary); box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
-.row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-.remember { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.remember input[type=checkbox] { width: 15px; height: 15px; accent-color: #1D9E75; cursor: pointer; margin: 0; }
-.remember span { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-secondary); }
-.link { font-family: 'DM Mono', monospace; font-size: 12px; color: #1D9E75; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; }
+label.field-label { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+input[type=text], input[type=password] { width: 100%; padding: 0 12px; height: 40px; background: #ffffff; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 14px; color: #1a1a18; outline: none; transition: border-color 0.15s; }
+input[type=text]:focus, input[type=password]:focus { border-color: #0f6e56; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); }
+input.invalid { border-color: #e24b4a; }
+.field-error { display: none; font-family: 'DM Mono', monospace; font-size: 11px; color: #e24b4a; margin-top: 5px; }
+.field-error.visible { display: block; }
+.link-wrap { position: relative; display: inline-block; }
+.link { font-family: 'DM Mono', monospace; font-size: 12px; font-style: normal; color: #1D9E75; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; }
 .link:hover { text-decoration: underline; }
-.btn-submit { width: 100%; height: 40px; background: var(--color-text-primary); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: opacity 0.15s; }
-.btn-submit:hover { opacity: 0.82; }
+.tooltip { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #ffffff; border: 1px solid #d3d1c7; border-radius: 8px; padding: 8px 12px; font-family: 'DM Mono', monospace; font-size: 11px; font-style: italic; color: #6b6a65; white-space: nowrap; z-index: 10; }
+.tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #d3d1c7; }
+.tooltip.visible { display: block; }
+.btn-submit { width: 100%; height: 40px; background: #ffffff; color: #1D9E75; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.15s, color 0.15s; margin-bottom: 0.75rem; }
+.btn-submit:hover { background: #1D9E75; color: #ffffff; }
 .btn-submit:active { transform: scale(0.98); }
-.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
-.signup { text-align: center; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-secondary); }
-.error-msg { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-danger); margin-top: -0.75rem; margin-bottom: 1rem; display: none; }
-.dashboard { display: none; min-height: 520px; background: var(--color-background-tertiary); }
-.dash-nav { background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.forgot-row { text-align: center; margin-bottom: 1.25rem; }
+.divider { border: none; border-top: 1px solid #e0deda; margin: 1.5rem 0; }
+.signup-section { text-align: center; font-family: 'DM Mono', monospace; font-size: 12px; color: #6b6a65; }
+.dashboard { display: none; min-height: 520px; background: #f5f4f0; }
+.dash-nav { background: #ffffff; border-bottom: 1px solid #e0deda; padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.dash-nav-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: #1a1a18; }
 .dash-body { padding: 2rem; }
-.dash-welcome { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: var(--color-text-primary); margin-bottom: 0.5rem; }
-.dash-sub { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 2rem; }
+.dash-welcome { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #1a1a18; margin-bottom: 0.5rem; }
+.dash-sub { font-family: 'DM Mono', monospace; font-size: 13px; color: #6b6a65; margin-bottom: 2rem; }
 .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 2rem; }
-.metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
-.metric-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--color-text-secondary); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
-.metric-value { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: var(--color-text-primary); }
-.dash-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; }
-.dash-card-title { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 1rem; }
-.activity-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-family: 'DM Mono', monospace; font-size: 13px; color: var(--color-text-primary); }
+.metric { background: #f5f4f0; border-radius: 8px; padding: 1rem; }
+.metric-label { font-family: 'DM Mono', monospace; font-size: 11px; color: #6b6a65; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.metric-value { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: #1a1a18; }
+.dash-card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 1.25rem; }
+.dash-card-title { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #6b6a65; margin-bottom: 1rem; }
+.activity-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e0deda; font-family: 'DM Mono', monospace; font-size: 13px; color: #1a1a18; }
 .activity-row:last-child { border-bottom: none; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; flex-shrink: 0; }
-.activity-time { margin-left: auto; font-size: 11px; color: var(--color-text-secondary); }
-.sign-out { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--color-text-secondary); background: none; border: none; cursor: pointer; padding: 0; }
-.sign-out:hover { color: var(--color-text-primary); }
+.activity-time { margin-left: auto; font-size: 11px; color: #6b6a65; }
+.sign-out { font-family: 'DM Mono', monospace; font-size: 12px; color: #6b6a65; background: none; border: none; cursor: pointer; padding: 0; }
+.sign-out:hover { color: #1a1a18; }
 </style>
 
 <div id="login-page" class="page">
@@ -51,39 +55,46 @@ input[type=text]:focus, input[type=password]:focus { border-color: var(--color-b
       </svg>
     </div>
     <h2 class="login-title" id="login-title">Login</h2>
-    <div class="error-msg" id="error-msg">Incorrect password. Please try again.</div>
-    <form data-testid="login-form" onsubmit="return false;">
+    <form data-testid="login-form" onsubmit="return false;" novalidate>
       <div class="form-group">
         <label class="field-label" id="username-label" for="username">Username</label>
-        <input type="text" id="username" name="username" aria-labelledby="username-label" data-testid="username-field" placeholder="your_username" required>
+        <input type="text" id="username" name="username" aria-labelledby="username-label" data-testid="username-field">
+        <div class="field-error" id="username-error" data-testid="username-error"></div>
       </div>
       <div class="form-group">
         <label class="field-label" id="password-label" for="password">Password</label>
-        <input type="password" id="password" name="password" aria-labelledby="password-label" data-testid="password-field" placeholder="••••••••" required>
-      </div>
-      <div class="row">
-        <label class="remember">
-          <input type="checkbox" id="remember-me" name="remember_me" data-testid="remember-me-checkbox">
-          <span>Remember me</span>
-        </label>
-        <button class="link" type="button" data-testid="forgot-username-link">Forgot username?</button>
+        <input type="password" id="password" name="password" aria-labelledby="password-label" data-testid="password-field">
+        <div class="field-error" id="password-error" data-testid="password-error"></div>
       </div>
       <div class="form-group">
         <button class="btn-submit" type="submit" data-testid="login-submit-button" onclick="handleLogin()">Sign In</button>
       </div>
+      <div class="forgot-row">
+        <span class="link-wrap">
+          <button class="link" type="button" data-testid="forgot-username-link" onclick="toggleTooltip('forgot-tip', event)">Forgot login?</button>
+          <div class="tooltip" id="forgot-tip" data-testid="forgot-username-tooltip">This feature is not yet available.</div>
+        </span>
+      </div>
     </form>
     <hr class="divider">
-    <p class="signup">No account? <button class="link" type="button" data-testid="signup-link">Sign up</button></p>
+    <div class="signup-section">
+      <p style="margin-bottom:6px;">No account?</p>
+      <span class="link-wrap">
+        <button class="link" type="button" data-testid="signup-link" onclick="toggleTooltip('signup-tip', event)">Sign up</button>
+        <div class="tooltip" id="signup-tip" data-testid="signup-tooltip">This feature is not yet available.</div>
+      </span>
+    </div>
   </div>
 </div>
 
-<div id="dashboard-page" class="dashboard">
+<div id="dashboard-page" class="dashboard" data-testid="dashboard-wrapper">
   <nav class="dash-nav">
     <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava" style="width:56px;height:auto;">
       <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
       <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
     </svg>
-    <button class="sign-out" onclick="handleSignOut()">Sign out</button>
+    <h1 class="dash-nav-title" id="dashboard-title" data-testid="dashboard-title">Dashboard</h1>
+    <button class="sign-out" data-testid="sign-out-button" onclick="handleSignOut()">Sign out</button>
   </nav>
   <div class="dash-body">
     <p class="dash-welcome">Welcome to Nava!</p>
@@ -106,32 +117,81 @@ input[type=text]:focus, input[type=password]:focus { border-color: var(--color-b
 
 <script>
 var pwInput = document.getElementById('password');
+var unInput = document.getElementById('username');
 
 pwInput.addEventListener('input', function() {
-  var val = pwInput.value;
-  if (/[^a-zA-Z0-9]/.test(val)) {
-    pwInput.type = 'text';
-  } else {
-    pwInput.type = 'password';
+  pwInput.type = /[^a-zA-Z0-9]/.test(pwInput.value) ? 'text' : 'password';
+});
+
+function toggleTooltip(id, e) {
+  e.stopPropagation();
+  var tip = document.getElementById(id);
+  var isVisible = tip.classList.contains('visible');
+  document.querySelectorAll('.tooltip').forEach(function(t) { t.classList.remove('visible'); });
+  if (!isVisible) tip.classList.add('visible');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest || !e.target.closest('.link-wrap')) {
+    document.querySelectorAll('.tooltip').forEach(function(t) { t.classList.remove('visible'); });
   }
 });
 
+function clearErrors() {
+  ['username','password'].forEach(function(f) {
+    document.getElementById(f).classList.remove('invalid');
+    var e = document.getElementById(f+'-error');
+    e.textContent = '';
+    e.classList.remove('visible');
+  });
+}
+
+function showError(field, msg) {
+  document.getElementById(field).classList.add('invalid');
+  var e = document.getElementById(field+'-error');
+  e.textContent = msg;
+  e.classList.add('visible');
+}
+
 function handleLogin() {
-  var pw = pwInput.value;
-  var err = document.getElementById('error-msg');
-  if (pw === 'secret') {
+  clearErrors();
+  var u = unInput.value;
+  var p = pwInput.value;
+  var valid = true;
+
+  if (!u) {
+    showError('username', 'This field is required');
+    valid = false;
+  } else if (u.length < 5 || u.length > 30 || !/^[a-zA-Z@. ]+$/.test(u)) {
+    showError('username', 'Invalid username/password');
+    valid = false;
+  }
+
+  if (!p) {
+    showError('password', 'This field is required');
+    valid = false;
+  } else if (p.length < 5 || p.length > 10 || !/^[a-zA-Z!@#$%]+$/.test(p)) {
+    showError('password', 'Invalid username/password');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  if (p === 'secret!') {
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('dashboard-page').style.display = 'block';
-    err.style.display = 'none';
   } else {
-    err.style.display = 'block';
+    showError('username', 'Invalid username/password');
+    showError('password', 'Invalid username/password');
   }
 }
 
 function handleSignOut() {
   document.getElementById('dashboard-page').style.display = 'none';
   document.getElementById('login-page').style.display = 'flex';
+  unInput.value = '';
   pwInput.value = '';
   pwInput.type = 'password';
+  clearErrors();
 }
 </script>
