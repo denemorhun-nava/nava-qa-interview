@@ -2,7 +2,7 @@
 
 ## Context
 
-You are testing [the Login Flow](https://denemorhun-nava.github.io/nava-qa-interview/) for an application.
+You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/).
 
 - Login is handled through a mocked backend API and mocked user data store.
 - The login page has frontend field validations for username and password.
@@ -78,26 +78,18 @@ Candidates should consider scenarios such as:
 <body>
   <div class="login-container" data-testid="login-wrapper">
     <h2 id="login-title">Login</h2>
-    <form action="#" method="POST" aria-labelledby="login-title" data-testid="login-form">
-      <div class="form-group">
-        <label id="username-label" for="username">Username</label>
-        <input type="text" id="username" name="username"
-          aria-labelledby="username-label" data-testid="username-field" required>
-      </div>
-      <div class="form-group">
-        <label id="password-label" for="password">Password</label>
-        <input type="password" id="password" name="password"
-          aria-labelledby="password-label" data-testid="password-field" required>
-      </div>
-      <div class="form-group">
-        <button type="submit" data-testid="login-submit-button">Sign In</button>
-      </div>
+    <form aria-labelledby="login-title" data-testid="login-form" novalidate>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username"
+        aria-labelledby="login-title" data-testid="username-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password"
+        aria-labelledby="login-title" data-testid="password-field">
+      <button type="submit" data-testid="login-submit-button">Sign In</button>
     </form>
   </div>
 </body>
 ```
-
-
 
 ## API
 
