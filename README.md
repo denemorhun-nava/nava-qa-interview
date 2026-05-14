@@ -20,15 +20,18 @@ You are testing [the Login FLOW](https://denemorhun-nava.github.io/nava-qa-inter
 
 ### Username
 - Required field
-- 30 character limit
+- 5 character lower limit
+- 20 character upper limit
 - Does not allow spaces
+- only alpha characters and @ and .
 
 ### Password
 - Required field
 - Masked
+- 5 character lower limit
 - 10 character limit
 - Only allows alpha characters and these special characters: `!@#$%`
-- typing in *secret* will unlock the dashboard
+- typing in *secret!* will unlock the dashboard
 
 ### Sign-in Button
   - Clickable
