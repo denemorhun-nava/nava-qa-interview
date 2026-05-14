@@ -2,12 +2,18 @@
 
 ## Context
 
-You are testing [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) for an application.
+You are testing [the Login FLOW](https://denemorhun-nava.github.io/nava-qa-interview/) for an application.
 
-- Login validates the user account through the backend.
+- Login is handled through a mocked backend API and mocked user data store.
+- The login page has frontend field validations for username and password.
+- After the user submits the form, the user is able to login.
+- Users may have different account states such as active, locked, disabled
+- Users may have different roles such as admin or standard user
 - Users must log in before accessing the dashboard or continuing their main workflow.
-- Users may have different roles and account states.
-
+    
+- Your test scenarios should cover both:
+    - Field-level validation
+    - Backend/account-level login behavior
 ---
 
 ## Requirements
@@ -24,6 +30,9 @@ You are testing [the login page](https://denemorhun-nava.github.io/nava-qa-inter
 - Only allows alpha characters and these special characters: `!@#$%`
 - typing in *secret* will unlock the dashboard
 
+### Sign-in Button
+  - Clickable
+
 ### Page-level validations
 - Validations are performed when **Sign in** is clicked
 - Validation messages appear under the field they apply to
@@ -33,9 +42,31 @@ You are testing [the login page](https://denemorhun-nava.github.io/nava-qa-inter
 
 ---
 
-## User Interface
 
-Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
+
+### Backend / Account Behavior
+
+The backend may return different outcomes depending on the user account.
+
+Candidates should consider scenarios such as:
+
+- Valid active user
+- Invalid username
+- Invalid password
+- Locked account
+- Disabled account
+- Pending or unverified account
+- Expired account
+- Different user roles or account types
+- User authenticated successfully but not authorized for the dashboard
+- Token-based login
+- Expired or invalid token
+
+## Screenshot
+
+![Login page](UI.png)
+
+---
 
 ### Partial HTML
 
@@ -62,11 +93,7 @@ Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in y
 </body>
 ```
 
-## Screenshot
 
-![Login page](UI.png)
-
----
 
 ## API
 
@@ -92,6 +119,10 @@ TABLE Users (
     registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
 ) 
 ```
+
+## User Interface
+
+Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
 
 
 
