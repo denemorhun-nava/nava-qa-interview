@@ -98,7 +98,7 @@ The backend may return different outcomes depending on the user account.
 ```sql
 TABLE Users (
     user_id           INT PRIMARY KEY AUTO_INCREMENT,
-    username          VARCHAR(50) UNIQUE NOT NULL,
+    username          VARCHAR(20) UNIQUE NOT NULL,
     email             VARCHAR(100) UNIQUE NOT NULL,
     password_hash     VARCHAR(255) NOT NULL,
     registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
