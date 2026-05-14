@@ -57,7 +57,7 @@ Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/a
 ### Dashboard
 - Entering a valid username and secret! in password field will enable user to view Dashboard
 - User should be greeted with the username used
-- Dashboard is for standard user view for this exercise
+- Dashboard is for _standard_ user view for this exercise
 
 ### Backend / Account Behavior
 
