@@ -2,18 +2,19 @@
 
 ## Context
 
-You are testing [the Login FLOW](https://denemorhun-nava.github.io/nava-qa-interview/) for an application.
+You are testing [the Login Flow](https://denemorhun-nava.github.io/nava-qa-interview/) for an application.
 
 - Login is handled through a mocked backend API and mocked user data store.
 - The login page has frontend field validations for username and password.
-- After the user submits the form, the user is able to login.
-- Users may have different account states such as active, locked, disabled
-- Users may have different roles such as admin or standard user
+- After the user submits the form, the mocked backend determines whether the user is allowed to log in.
+- Users may have different account states, such as active, locked, or disabled.
+- Users may have different roles, such as admin or standard user.
 - Users must log in before accessing the dashboard or continuing their main workflow.
-    
-- Your test scenarios should cover both:
-    - Field-level validation
-    - Backend/account-level login behavior
+
+Your goal is to design a test strategy for the login flow, not just test the login form. 
+
+Include field validation, authentication behavior, user account states, role/access differences, token login, error handling, and any missing requirements you would clarify before testing.
+
 ---
 
 ## Requirements
