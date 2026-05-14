@@ -22,7 +22,7 @@ Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in y
 
 ## Test Tooling 
 
-Open [The NAVA Test Tooling](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html) to enter:
+Open [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html) to enter:
 - Acceptance Criteria
 - Test Case
 - Bug
