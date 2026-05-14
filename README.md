@@ -13,7 +13,7 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 
 Your goal is to design a test strategy for the login flow, not just test the login form. 
 
-Include field validation, authentication behavior, user account states, role/access differences, token login, error handling, and any missing requirements you would clarify before testing.
+Include field validation, authentication behavior, user account states, role/access differences, error handling, and any missing requirements you would clarify before testing.
 
 ---
 
