@@ -6,7 +6,7 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 
 - Login is handled through a mocked backend API and mocked user data store.
 - The login page has frontend field validations for username and password.
-- After the user submits the form, the mocked backend determines whether the user is allowed to log in.
+- After the user clicks Sign-in, the mocked backend determines whether the user is allowed to log in.
 - Users may have different account states, such as active, locked, or disabled.
 - Users may have different roles, such as admin or standard user.
 - Users must log in before accessing the dashboard or continuing their main workflow.
@@ -32,7 +32,6 @@ Include field validation, authentication behavior, user account states, role/acc
 - 5 character lower limit
 - 10 character limit
 - Only allows alpha characters and these special characters: `!@#$%`
-- typing in *secret!* will unlock the dashboard
 
 ### Sign-in Button
   - Clickable
@@ -44,9 +43,11 @@ Include field validation, authentication behavior, user account states, role/acc
   - `"This field is required"`
   - `"Invalid username/password"`
 
+### Dashboard
+- Entering *secret!* in password field will enable user to authenticate
+- Dashboard is standard user view for this exercise
+
 ---
-
-
 
 ### Backend / Account Behavior
 
