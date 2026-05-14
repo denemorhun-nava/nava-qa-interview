@@ -13,7 +13,8 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 
 Your goal is to design a test strategy for the login flow, not just test the login form. 
 
-Include field validation, authentication behavior, user account states, role/access differences, error handling, and any missing requirements you would clarify before testing.
+Align on Acceptance Criteria, write test cases, execute them and log bugs. Include field validation, authentication behavior, user account states, 
+role/access differences, error handling, and any missing requirements you would clarify before testing.
 
 ---
 ## Application
@@ -55,11 +56,11 @@ Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/a
   - `"Invalid username/password"`
 
 ### Dashboard
-- Entering a valid username and secret! in password field will enable user to view Dashboard
-- User should be greeted with the username used
-- Dashboard is for _standard_ user view for this exercise
+- Entering a valid username and **secret!** in password field will enable user to authenticate
+- User should be greeted with the username used to log in
+- Dashboard is for **standard** user view for this exercise
 
-### Backend / Account Behavior
+### Backend / Account Behavior for E2E
 
 The backend may return different outcomes depending on the user account.
 - Valid active user
