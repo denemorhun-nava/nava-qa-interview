@@ -16,6 +16,17 @@ Your goal is to design a test strategy for the login flow, not just test the log
 Include field validation, authentication behavior, user account states, role/access differences, error handling, and any missing requirements you would clarify before testing.
 
 ---
+## Application
+
+Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
+
+## Test Tooling 
+
+Open [The NAVA Test Tooling](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html) to enter:
+- Acceptance Criteria
+- Test Case
+- Bug
+---
 
 ## Requirements
 
@@ -105,9 +116,7 @@ TABLE Users (
 ) 
 ```
 
-## Application
 
-Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
 
 
 
