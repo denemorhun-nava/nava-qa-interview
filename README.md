@@ -18,11 +18,11 @@ Include field validation, authentication behavior, user account states, role/acc
 ---
 ## Application
 
-Open [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
+Go to [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
 
 ## Test Tooling 
 
-Open [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html) to enter:
+Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html) to write up:
 - Acceptance Criteria
 - Test Case
 - Bug
