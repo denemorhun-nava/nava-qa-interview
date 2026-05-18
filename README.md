@@ -108,6 +108,8 @@ The backend may return different outcomes depending on the user account.
 
 ## Database Schema
 
+The backend and database are mocked for interview purposes. Assume the Users table controls account state, role, failed login behavior, and last successful login tracking.
+
 ```sql
 TABLE Users (
     user_id              INT PRIMARY KEY AUTO_INCREMENT,
