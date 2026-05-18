@@ -110,11 +110,17 @@ The backend may return different outcomes depending on the user account.
 
 ```sql
 TABLE Users (
-    user_id           INT PRIMARY KEY AUTO_INCREMENT,
-    username          VARCHAR(20) UNIQUE NOT NULL,
-    email             VARCHAR(100) UNIQUE NOT NULL,
-    password_hash     VARCHAR(255) NOT NULL,
-    registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+    user_id              INT PRIMARY KEY AUTO_INCREMENT,
+    username             VARCHAR(20) UNIQUE NOT NULL,
+    email                VARCHAR(100) UNIQUE NOT NULL,
+    password_hash        VARCHAR(255) NOT NULL,
+    account_status       VARCHAR(20) NOT NULL, 
+    role                 VARCHAR(20) NOT NULL,
+    failed_login_attempts INT DEFAULT 0,
+    last_login_at        DATETIME NULL,
+    locked_at            DATETIME NULL,
+    registration_date    DATETIME DEFAULT CURRENT_TIMESTAMP
+)
 ) 
 ```
 
