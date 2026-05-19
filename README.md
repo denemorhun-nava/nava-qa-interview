@@ -33,17 +33,16 @@ Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/a
 
 ### Username
 - Required field
-- 5 character lower limit
-- 20 character upper limit
+- username must be greater than 5 characters and less than 21 in length
 - Does not allow spaces
-- only alpha characters and the following special characters *'@'* and *'.'*
+- only **alpha** characters and the following special characters **'@'** and **'.'**
 
 ### Password
 - Required field
 - Masked
 - 5 character lower limit
 - 10 character limit
-- Only allows *alpha* characters and these special characters: *`!@#$%`*
+- Only allows *alpha* characters and these special characters: **`!@#$%`**
 - Entering any valid username and **secret!** in password field will enable user to authenticate
 
 ### Sign-in Button
