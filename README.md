@@ -112,7 +112,7 @@ The backend and database are mocked for interview purposes. Assume the Users tab
 ```sql
 TABLE Users (
     user_id              INT PRIMARY KEY AUTO_INCREMENT,
-    username             VARCHAR(20) UNIQUE NOT NULL,
+    username             VARCHAR(17) UNIQUE NOT NULL,
     email                VARCHAR(100) UNIQUE NOT NULL,
     password_hash        VARCHAR(255) NOT NULL,
     account_status       VARCHAR(20) NOT NULL, 
