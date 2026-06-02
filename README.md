@@ -124,7 +124,9 @@ TABLE Users (
 )
 ) 
 ```
+## CI/CD
 
+Jobs are orchestrated via Jenkins CodePipelines. 
 
 
 
