@@ -1,5 +1,15 @@
 # Login Page — QA Interview Exercise
 
+## Goal
+
+Your goal is to **design a test strategy** for the login flow, not just test the login form. 
+
+During this refinement session, 
+- Align on Acceptance Criteria
+- Write test cases
+- Execute test cases
+- Log bug(s).
+
 ## Context
 
 You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/).
@@ -11,11 +21,7 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 - Users may have different roles, such as admin or standard user.
 - Users must log in before accessing the dashboard or continuing their main workflow.
 
-## Goal
-
-Your goal is to design a test strategy for **the login flow**, not just test the login form. 
-
-Align on Acceptance Criteria, write test cases, execute them and log bugs. Include field validation, authentication behavior, user account states, 
+Include field validation, authentication behavior, user account states, 
 role/access differences, error handling, and any missing requirements you would clarify before testing.
 
 ---
