@@ -11,7 +11,9 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 - Users may have different roles, such as admin or standard user.
 - Users must log in before accessing the dashboard or continuing their main workflow.
 
-Your goal is to design a test strategy for the login flow, not just test the login form. 
+## Goal
+
+Your goal is to design a test strategy for **the login flow**, not just test the login form. 
 
 Align on Acceptance Criteria, write test cases, execute them and log bugs. Include field validation, authentication behavior, user account states, 
 role/access differences, error handling, and any missing requirements you would clarify before testing.
@@ -41,7 +43,7 @@ Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/a
 - Required field
 - must be masked
 - username must be greater than 5 characters and less than 11 in length
-- Only allows *alpha* characters and these special characters: **!@#$%**
+- Only allows **alpha** characters and these special characters: **!@#$%**
 - Entering any valid username and **secret!** in password field will enable user to authenticate
 
 ### Sign-in Button
