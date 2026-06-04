@@ -163,7 +163,7 @@ function handleLogin() {
   if (!u) {
     showError('username', 'This field is required');
     valid = false;
-  } else if (u.length < 5 || u.length > 30 || !/^[a-zA-Z@. ]+$/.test(u)) {
+} else if (u.length < 5 || u.length > 30 || !/^[a-zA-Z. ]*(@[a-zA-Z. ]*)?$/.test(u)) {
     showError('username', 'Invalid username/password');
     valid = false;
   }
