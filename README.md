@@ -16,7 +16,6 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 - Users may have different roles, such as admin or standard user.
 
 ## Test Tooling 
-Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html)
 
 During this exercise: 
 - Align on Acceptance Criteria
