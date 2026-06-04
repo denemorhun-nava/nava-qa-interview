@@ -14,7 +14,6 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 - After the user clicks Sign-in, the mocked backend determines whether the user has access.
 - Users may have different account states, such as active, locked, or disabled.
 - Users may have different roles, such as admin or standard user.
----
 
 ## Test Tooling 
 Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html)
@@ -23,8 +22,7 @@ During this exercise:
 - Align on Acceptance Criteria
 - Write and execute cases
 - Find and log bug(s)
----
-
+  
 ## Requirements
 
 Clarify UI validations, authentication behavior, user account states, role/access differences, error handling, and any missing requirements before testing.
@@ -91,7 +89,7 @@ The backend may return different outcomes depending on the user account.
   </div>
 </body>
 ```
-
+---
 ## API Mock
 
 | Method | Endpoint | Notes |
