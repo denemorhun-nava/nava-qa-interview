@@ -4,11 +4,6 @@
 
 Your goal is to **design a test strategy** for the login flow, not just test the login form. 
 
-During this exercise: 
-- Align on Acceptance Criteria
-- Write and execute cases
-- Find and log bug(s)
-
 ## Context
 
 You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/).
@@ -19,34 +14,33 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 - After the user clicks Sign-in, the mocked backend determines whether the user has access.
 - Users may have different account states, such as active, locked, or disabled.
 - Users may have different roles, such as admin or standard user.
-
 ---
 
 ## Test Tooling 
+Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html)
 
-Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/acceptance-criteria.html) to write up:
-- Acceptance Criteria
-- Test Case
-- Bug
+During this exercise: 
+- Align on Acceptance Criteria
+- Write and execute cases
+- Find and log bug(s)
 ---
 
 ## Requirements
 
-Clarify field validation, authentication behavior, user account states, 
-role/access differences, error handling, and any missing requirements before testing.
+Clarify UI validations, authentication behavior, user account states, role/access differences, error handling, and any missing requirements before testing.
 
 ### Username Field
 - Required field
 - Username must be greater than 5 characters and less than 21 in length
-- Does not allow spaces
+- Does **not** allow **spaces**
 - Only **alpha** characters and the following special characters **'@'** and **'.'** are allowed
-- Only a single instance of '@' is allowed
+- Only a **single instance** of '**@**' is allowed
 
 ### Password Field
 - Required field
-- must be masked
-- password must be greater than 5 characters and less than 11 in length
-- Only allows **alpha** characters and these special characters: **!@#$%**
+- Must always be masked
+- Password must be greater than 5 characters and less than 11 in length
+- Only allows **alpha** characters and the following special characters: **! @ # $ %**
 - Entering any valid username and **secret!** in password field will enable user to authenticate
 
 ### Sign-in Button
@@ -60,21 +54,22 @@ role/access differences, error handling, and any missing requirements before tes
   - `"Invalid username/password"`
 
 ### Dashboard
-
+- Entering any valid username and **secret!** in password field will enable user to authenticate
 - User should be greeted with the username used to log in
-- Dashboard is for **standard** user view for this exercise
+- Dashboard is only for **STANDARD** user view for this exercise
+- Only clicking sign-out should end the session
 
-### Backend / Account Behavior for E2E
-
+### Backend / Account Behavior for E2E Scenarios
 The backend may return different outcomes depending on the user account.
 - Valid active user
 - Locked/Disabled account
 - Different user roles or account types
 - Token-based login
 
-## Screenshot
-
+## Screenshots
 ![Login page](UI.png)
+
+![Dashboard page](dashboard.png)
 
 ---
 
@@ -97,7 +92,7 @@ The backend may return different outcomes depending on the user account.
 </body>
 ```
 
-## API
+## API Mock
 
 | Method | Endpoint | Notes |
 |--------|----------|-------|
@@ -130,8 +125,7 @@ TABLE Users (
 ) 
 ```
 ## CI/CD
-
-Jobs are orchestrated via Jenkins CodePipelines. 
+Jobs are orchestrated via Jenkins Pipelines. 
 
 
 
