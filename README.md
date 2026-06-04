@@ -17,14 +17,14 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 
 ## Test Tooling 
 
-During this exercise: 
+During this exercise:
 - Align on Acceptance Criteria
 - Write and execute cases
 - Find and log bug(s)
   
 ## Requirements
 
-Clarify UI validations, authentication behavior, user account states, role/access differences, error handling, and any missing requirements before testing.
+Clarify **scope**, UI validations, authentication behavior, user account states/roles,  error handling, and any missing requirements before testing.
 
 ### Username Field
 - Required field
