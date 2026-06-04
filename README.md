@@ -4,30 +4,23 @@
 
 Your goal is to **design a test strategy** for the login flow, not just test the login form. 
 
-During this refinement session, 
+During this exercise: 
 - Align on Acceptance Criteria
-- Write test cases
-- Execute test cases
-- Log bug(s).
+- Write and execute cases
+- Find and log bug(s)
 
 ## Context
 
 You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/).
 
+- Users must log in before accessing the dashboard or continuing their main workflow.
 - Login is handled through a mocked backend API and user data store.
 - The login page has frontend field validations for username and password.
 - After the user clicks Sign-in, the mocked backend determines whether the user has access.
 - Users may have different account states, such as active, locked, or disabled.
 - Users may have different roles, such as admin or standard user.
-- Users must log in before accessing the dashboard or continuing their main workflow.
-
-Include field validation, authentication behavior, user account states, 
-role/access differences, error handling, and any missing requirements you would clarify before testing.
 
 ---
-## Application
-
-Go to [the login page](https://denemorhun-nava.github.io/nava-qa-interview/) in your browser to interact with the login page.
 
 ## Test Tooling 
 
@@ -39,13 +32,17 @@ Go to [The NAVA Test Tool](https://denemorhun-nava.github.io/nava-qa-interview/a
 
 ## Requirements
 
-### Username
-- Required field
-- username must be greater than 5 characters and less than 21 in length
-- Does not allow spaces
-- only **alpha** characters and the following special characters **'@'** and **'.'**
+Clarify field validation, authentication behavior, user account states, 
+role/access differences, error handling, and any missing requirements before testing.
 
-### Password
+### Username Field
+- Required field
+- Username must be greater than 5 characters and less than 21 in length
+- Does not allow spaces
+- Only **alpha** characters and the following special characters **'@'** and **'.'** are allowed
+- Only a single instance of '@' is allowed
+
+### Password Field
 - Required field
 - must be masked
 - password must be greater than 5 characters and less than 11 in length
