@@ -39,7 +39,6 @@ Clarify UI validations, authentication behavior, user account states, role/acces
 - Must always be masked
 - Password must be greater than 5 characters and less than 11 in length
 - Only allows **alpha** characters and the following special characters: **! @ # $ %**
-- Entering any valid username and **secret!** in password field will enable user to authenticate
 
 ### Sign-in Button
   - Clickable
