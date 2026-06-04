@@ -1,124 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nava — QA Interview Exercise</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'DM Mono', monospace; background: #f5f4f0; display: flex; flex-direction: column; }
+    .topbar { height: 48px; background: #ffffff; border-bottom: 1px solid #e0deda; display: flex; align-items: center; padding: 0 1.5rem; flex-shrink: 0; justify-content: space-between; }
+    .topbar-logo svg { width: 56px; height: auto; }
+    .topbar-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; }
+    .split { display: flex; flex: 1; overflow: hidden; }
+    .panel-app { width: 400px; min-width: 360px; flex-shrink: 0; border-right: 1px solid #e0deda; background: #f5f4f0; overflow-y: auto; display: flex; flex-direction: column; }
+    .panel-qa { flex: 1; overflow-y: auto; background: #f5f4f0; padding: 1.5rem; }
+    .app-page { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem 1.25rem; }
+    .login-container { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 2rem; width: 100%; max-width: 320px; }
+    .nava-logo { margin-bottom: 1.5rem; }
+    .nava-logo svg { width: 60px; height: auto; }
+    h2.login-title { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400; color: #1a1a18; letter-spacing: -0.5px; margin-bottom: 1.25rem; }
+    .form-group { margin-bottom: 1rem; }
+    label.field-label { display: block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; margin-bottom: 5px; }
+    input[type=text], input[type=password] { width: 100%; padding: 0 11px; height: 38px; background: #ffffff; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 13px; color: #1a1a18; outline: none; transition: border-color 0.15s; }
+    input[type=text]:focus, input[type=password]:focus { border-color: #0f6e56; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
+    input.invalid { border-color: #e24b4a; }
+    .field-error { display: none; font-size: 10px; color: #e24b4a; margin-top: 4px; }
+    .field-error.visible { display: block; }
+    .link-wrap { position: relative; display: inline-block; }
+    .link { font-family: 'DM Mono', monospace; font-size: 11px; color: #1D9E75; cursor: pointer; background: none; border: none; padding: 0; }
+    .link:hover { text-decoration: underline; }
+    .tooltip { display: none; position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%); background: #ffffff; border: 1px solid #d3d1c7; border-radius: 8px; padding: 7px 11px; font-size: 10px; font-style: italic; color: #6b6a65; white-space: nowrap; z-index: 10; }
+    .tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #d3d1c7; }
+    .tooltip.visible { display: block; }
+    .btn-submit { width: 100%; height: 38px; background: #ffffff; color: #1D9E75; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.15s, color 0.15s; margin-bottom: 0.65rem; }
+    .btn-submit:hover { background: #1D9E75; color: #ffffff; }
+    .btn-submit:active { transform: scale(0.98); }
+    .forgot-row { text-align: center; margin-bottom: 1rem; }
+    .divider { border: none; border-top: 1px solid #e0deda; margin: 1.25rem 0; }
+    .signup-section { text-align: center; font-size: 11px; color: #6b6a65; }
+    .dashboard { display: none; flex-direction: column; flex: 1; }
+    .dash-nav { background: #ffffff; border-bottom: 1px solid #e0deda; padding: 0 1.25rem; height: 50px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .dash-nav-title { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; color: #1a1a18; }
+    .sign-out { font-family: 'DM Mono', monospace; font-size: 11px; color: #6b6a65; background: none; border: none; cursor: pointer; }
+    .sign-out:hover { color: #1a1a18; }
+    .dash-body { padding: 1.25rem; overflow-y: auto; flex: 1; }
+    .dash-welcome { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; color: #1a1a18; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .admin-tag { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; background: #c0392b; padding: 3px 8px; border-radius: 4px; display: inline-block; }
+    .dash-sub { font-size: 12px; color: #6b6a65; margin-bottom: 1.25rem; }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 1.25rem; }
+    .metric { background: #eeece7; border-radius: 8px; padding: 0.75rem; }
+    .metric-label { font-size: 9px; color: #6b6a65; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+    .metric-value { font-size: 20px; font-weight: 500; color: #1a1a18; }
+    .dash-card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 1rem; }
+    .dash-card-title { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #6b6a65; margin-bottom: 0.75rem; }
+    .activity-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #e0deda; font-size: 12px; color: #1a1a18; }
+    .activity-row:last-child { border-bottom: none; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #1D9E75; flex-shrink: 0; }
+    .activity-time { margin-left: auto; font-size: 10px; color: #6b6a65; }
+    .qa-container { max-width: 720px; display: flex; flex-direction: column; gap: 1.25rem; }
+    .qa-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid #e0deda; }
+    .qa-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: #1a1a18; }
+    .btn-clear { font-family: 'DM Mono', monospace; font-size: 11px; color: #a32d2d; background: #fff0f0; border: 1.5px solid #F09595; border-radius: 7px; padding: 5px 12px; cursor: pointer; transition: background 0.15s; }
+    .btn-clear:hover { background: #ffe0e0; }
+    .card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 1.25rem; }
+    .card-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 16px; font-weight: 400; color: #1a1a18; margin-bottom: 0.75rem; }
+    textarea { width: 100%; min-height: 100px; padding: 10px; font-family: 'DM Mono', monospace; font-size: 12px; color: #1a1a18; background: #fafaf8; border: 1.5px solid #1D9E75; border-radius: 8px; resize: vertical; outline: none; line-height: 1.6; }
+    textarea:focus { border-color: #0f6e56; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
+    textarea::placeholder { color: #b4b2a9; font-style: italic; }
+    .hint { font-size: 10px; color: #b4b2a9; margin-top: 5px; }
+    .tests-container { display: flex; flex-direction: column; gap: 1rem; }
+    .test-block { border: 1px solid #e0deda; border-radius: 10px; overflow: hidden; }
+    .test-block-header { background: #f5f4f0; padding: 8px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e0deda; }
+    .test-num { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: #6b6a65; white-space: nowrap; }
+    .test-name-input { flex: 1; padding: 5px 9px; font-family: 'DM Mono', monospace; font-size: 12px; color: #1a1a18; background: #ffffff; border: 1.5px solid #e0deda; border-radius: 6px; outline: none; }
+    .test-name-input:focus { border-color: #1D9E75; }
+    .test-name-input::placeholder { color: #c8c6be; }
+    .delete-test { background: none; border: none; color: #d3d1c7; font-size: 16px; cursor: pointer; padding: 3px 5px; margin-left: auto; }
+    .delete-test:hover { color: #e24b4a; }
+    .test-block-body { padding: 10px 12px 12px; }
+    .table-wrap { overflow-x: auto; margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    thead tr { background: #f9f8f6; }
+    th { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: #6b6a65; font-weight: 500; padding: 7px 8px; text-align: left; border-bottom: 1px solid #e0deda; }
+    th:first-child { width: 36px; text-align: center; }
+    th.col-step { width: 36%; }
+    th.col-expected { width: 36%; }
+    th.col-result { width: 88px; }
+    th.col-delete { width: 32px; }
+    td { padding: 4px 5px; vertical-align: middle; border-bottom: 1px solid #f0efeb; }
+    td:first-child { text-align: center; color: #b4b2a9; font-size: 11px; user-select: none; }
+    td input[type=text] { width: 100%; padding: 5px 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: #1a1a18; background: #fafaf8; border: 1.5px solid #e0deda; border-radius: 6px; outline: none; }
+    td input[type=text]:focus { border-color: #1D9E75; }
+    td input[type=text]::placeholder { color: #c8c6be; }
+    .result-select { width: 100%; padding: 5px 8px; font-family: 'DM Mono', monospace; font-size: 11px; border: 1.5px solid #e0deda; border-radius: 6px; background: #fafaf8; color: #6b6a65; outline: none; cursor: pointer; appearance: none; text-align: center; }
+    .result-select.pass { background: #e8f7f1; color: #0f6e56; border-color: #9FE1CB; }
+    .result-select.fail { background: #fff0f0; color: #a32d2d; border-color: #F09595; }
+    .delete-row { background: none; border: none; color: #d3d1c7; font-size: 15px; cursor: pointer; padding: 4px; line-height: 1; }
+    .delete-row:hover { color: #e24b4a; }
+    .row-actions { display: flex; gap: 8px; }
+    .btn { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 6px 12px; border-radius: 7px; cursor: pointer; border: 1.5px solid #1D9E75; background: #ffffff; color: #1D9E75; }
+    .btn:hover { background: #f0faf6; }
+    .btn-add-test { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 7px 16px; border-radius: 7px; cursor: pointer; background: #1D9E75; color: #ffffff; border: none; }
+    .btn-add-test:hover { background: #0f6e56; }
+    @media (max-width: 900px) {
+      html, body { overflow: auto; height: auto; }
+      .split { flex-direction: column; overflow: visible; }
+      .panel-app { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid #e0deda; overflow: visible; }
+      .panel-qa { overflow: visible; }
+    }
+  </style>
+</head>
+<body>
 
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap');
-.page { min-height: 520px; display: flex; align-items: center; justify-content: center; background: #f5f4f0; padding: 3rem 1rem; }
-.login-container { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 2.5rem; width: 100%; max-width: 380px; }
-.nava-logo { margin-bottom: 2rem; }
-.nava-logo svg { width: 72px; height: auto; }
-h2.login-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; letter-spacing: -0.5px; margin-bottom: 1.5rem; }
-.form-group { margin-bottom: 1.25rem; }
-label.field-label { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; margin-bottom: 6px; font-family: 'DM Mono', monospace; }
-input[type=text], input[type=password] { width: 100%; padding: 0 12px; height: 40px; background: #ffffff; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 14px; color: #1a1a18; outline: none; transition: border-color 0.15s; }
-input[type=text]:focus, input[type=password]:focus { border-color: #0f6e56; box-shadow: 0 0 0 3px rgba(29,158,117,0.12); }
-input.invalid { border-color: #e24b4a; }
-.field-error { display: none; font-family: 'DM Mono', monospace; font-size: 11px; color: #e24b4a; margin-top: 5px; }
-.field-error.visible { display: block; }
-.link-wrap { position: relative; display: inline-block; }
-.link { font-family: 'DM Mono', monospace; font-size: 12px; font-style: normal; color: #1D9E75; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; }
-.link:hover { text-decoration: underline; }
-.tooltip { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #ffffff; border: 1px solid #d3d1c7; border-radius: 8px; padding: 8px 12px; font-family: 'DM Mono', monospace; font-size: 11px; font-style: italic; color: #6b6a65; white-space: nowrap; z-index: 10; }
-.tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #d3d1c7; }
-.tooltip.visible { display: block; }
-.btn-submit { width: 100%; height: 40px; background: #ffffff; color: #1D9E75; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.15s, color 0.15s; margin-bottom: 0.75rem; }
-.btn-submit:hover { background: #1D9E75; color: #ffffff; }
-.btn-submit:active { transform: scale(0.98); }
-.forgot-row { text-align: center; margin-bottom: 1.25rem; }
-.divider { border: none; border-top: 1px solid #e0deda; margin: 1.5rem 0; }
-.signup-section { text-align: center; font-family: 'DM Mono', monospace; font-size: 12px; color: #6b6a65; }
-.dashboard { display: none; min-height: 520px; background: #f5f4f0; }
-.dash-nav { background: #ffffff; border-bottom: 1px solid #e0deda; padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
-.dash-nav-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: #1a1a18; }
-.dash-body { padding: 2rem; }
-.dash-welcome { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #1a1a18; margin-bottom: 0.5rem; line-height: 1.3; }
-.dash-welcome .admin-tag { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; background: #c0392b; padding: 3px 10px; border-radius: 4px; vertical-align: middle; margin-right: 6px; display: inline-block; }
-.dash-sub { font-family: 'DM Mono', monospace; font-size: 13px; color: #6b6a65; margin-bottom: 2rem; }
-.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 2rem; }
-.metric { background: #f5f4f0; border-radius: 8px; padding: 1rem; }
-.metric-label { font-family: 'DM Mono', monospace; font-size: 11px; color: #6b6a65; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
-.metric-value { font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500; color: #1a1a18; }
-.dash-card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 1.25rem; }
-.dash-card-title { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #6b6a65; margin-bottom: 1rem; }
-.activity-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e0deda; font-family: 'DM Mono', monospace; font-size: 13px; color: #1a1a18; }
-.activity-row:last-child { border-bottom: none; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; flex-shrink: 0; }
-.activity-time { margin-left: auto; font-size: 11px; color: #6b6a65; }
-.sign-out { font-family: 'DM Mono', monospace; font-size: 12px; color: #6b6a65; background: none; border: none; cursor: pointer; padding: 0; }
-.sign-out:hover { color: #1a1a18; }
-</style>
-
-<div id="login-page" class="page">
-  <div class="login-container" data-testid="login-wrapper">
-    <div class="nava-logo">
-      <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava">
-        <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
-        <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
-      </svg>
-    </div>
-    <h2 class="login-title" id="login-title">Login</h2>
-    <form data-testid="login-form" onsubmit="return false;" novalidate>
-      <div class="form-group">
-        <label class="field-label" id="username-label" for="username">Username</label>
-        <input type="text" id="username" name="username" aria-labelledby="username-label" data-testid="username-field">
-        <div class="field-error" id="username-error" data-testid="username-error"></div>
-      </div>
-      <div class="form-group">
-        <label class="field-label" id="password-label" for="password">Password</label>
-        <input type="password" id="password" name="password" aria-labelledby="password-label" data-testid="password-field">
-        <div class="field-error" id="password-error" data-testid="password-error"></div>
-      </div>
-      <div class="form-group">
-        <button class="btn-submit" type="submit" data-testid="login-submit-button" onclick="handleLogin()">Sign In</button>
-      </div>
-      <div class="forgot-row">
-        <span class="link-wrap">
-          <button class="link" type="button" data-testid="forgot-username-link" onclick="toggleTooltip('forgot-tip', event)">Forgot login?</button>
-          <div class="tooltip" id="forgot-tip" data-testid="forgot-username-tooltip">This feature is not yet available.</div>
-        </span>
-      </div>
-    </form>
-    <hr class="divider">
-    <div class="signup-section">
-      <p style="margin-bottom:6px;">No account?</p>
-      <span class="link-wrap">
-        <button class="link" type="button" data-testid="signup-link" onclick="toggleTooltip('signup-tip', event)">Sign up</button>
-        <div class="tooltip" id="signup-tip" data-testid="signup-tooltip">This feature is not yet available.</div>
-      </span>
-    </div>
-  </div>
-</div>
-
-<div id="dashboard-page" class="dashboard" data-testid="dashboard-wrapper">
-  <nav class="dash-nav">
-    <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava" style="width:56px;height:auto;">
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava">
       <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
       <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
     </svg>
-    <h1 class="dash-nav-title" id="dashboard-title" data-testid="dashboard-title">Dashboard</h1>
-    <button class="sign-out" data-testid="sign-out-button" onclick="handleSignOut()">Sign out</button>
-  </nav>
-  <div class="dash-body">
-    <p class="dash-welcome" id="dash-welcome" data-testid="dashboard-welcome"></p>
-    <p class="dash-sub">Good to have you back.</p>
-    <div class="metric-grid">
-      <div class="metric"><div class="metric-label">Households served</div><div class="metric-value">50M+</div></div>
-      <div class="metric"><div class="metric-label">Payments disbursed</div><div class="metric-value">$3B+</div></div>
-      <div class="metric"><div class="metric-label">Hours saved</div><div class="metric-value">500K</div></div>
-      <div class="metric"><div class="metric-label">Active projects</div><div class="metric-value">12</div></div>
+  </div>
+  <span class="topbar-label">QA Interview Exercise</span>
+</div>
+
+<div class="split">
+
+  <div class="panel-app">
+    <div id="login-page" class="app-page">
+      <div class="login-container" data-testid="login-wrapper">
+        <div class="nava-logo">
+          <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava">
+            <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
+            <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
+          </svg>
+        </div>
+        <h2 class="login-title" id="login-title">Login</h2>
+        <form data-testid="login-form" onsubmit="return false;" novalidate>
+          <div class="form-group">
+            <label class="field-label" id="username-label" for="username">Username</label>
+            <input type="text" id="username" name="username" aria-labelledby="username-label" data-testid="username-field">
+            <div class="field-error" id="username-error" data-testid="username-error"></div>
+          </div>
+          <div class="form-group">
+            <label class="field-label" id="password-label" for="password">Password</label>
+            <input type="password" id="password" name="password" aria-labelledby="password-label" data-testid="password-field">
+            <div class="field-error" id="password-error" data-testid="password-error"></div>
+          </div>
+          <div class="form-group">
+            <button class="btn-submit" type="submit" data-testid="login-submit-button" onclick="handleLogin()">Sign In</button>
+          </div>
+          <div class="forgot-row">
+            <span class="link-wrap">
+              <button class="link" type="button" data-testid="forgot-username-link" onclick="toggleTooltip('forgot-tip', event)">Forgot login?</button>
+              <div class="tooltip" id="forgot-tip" data-testid="forgot-username-tooltip">This feature is not yet available.</div>
+            </span>
+          </div>
+        </form>
+        <hr class="divider">
+        <div class="signup-section">
+          <p style="margin-bottom:5px;">No account?</p>
+          <span class="link-wrap">
+            <button class="link" type="button" data-testid="signup-link" onclick="toggleTooltip('signup-tip', event)">Sign up</button>
+            <div class="tooltip" id="signup-tip" data-testid="signup-tooltip">This feature is not yet available.</div>
+          </span>
+        </div>
+      </div>
     </div>
-    <div class="dash-card">
-      <div class="dash-card-title">Recent activity</div>
-      <div class="activity-row"><div class="dot"></div>VA disability claims pipeline deployed<span class="activity-time">2h ago</span></div>
-      <div class="activity-row"><div class="dot"></div>Illinois IDES portal sprint review<span class="activity-time">Yesterday</span></div>
-      <div class="activity-row"><div class="dot"></div>Nava Labs AI tool beta launched<span class="activity-time">3 days ago</span></div>
-      <div class="activity-row"><div class="dot"></div>SEC enterprise contract awarded<span class="activity-time">1 week ago</span></div>
+
+    <div id="dashboard-page" class="dashboard" data-testid="dashboard-wrapper">
+      <nav class="dash-nav">
+        <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava" style="width:48px;height:auto;">
+          <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
+          <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
+        </svg>
+        <h1 class="dash-nav-title" id="dashboard-title" data-testid="dashboard-title">Dashboard</h1>
+        <button class="sign-out" data-testid="sign-out-button" onclick="handleSignOut()">Sign out</button>
+      </nav>
+      <div class="dash-body">
+        <p class="dash-welcome" id="dash-welcome" data-testid="dashboard-welcome"></p>
+        <p class="dash-sub">Good to have you back.</p>
+        <div class="metric-grid">
+          <div class="metric"><div class="metric-label">Households served</div><div class="metric-value">50M+</div></div>
+          <div class="metric"><div class="metric-label">Payments disbursed</div><div class="metric-value">$3B+</div></div>
+          <div class="metric"><div class="metric-label">Hours saved</div><div class="metric-value">500K</div></div>
+          <div class="metric"><div class="metric-label">Active projects</div><div class="metric-value">12</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">Recent activity</div>
+          <div class="activity-row"><div class="dot"></div>VA disability claims pipeline deployed<span class="activity-time">2h ago</span></div>
+          <div class="activity-row"><div class="dot"></div>Illinois IDES portal sprint review<span class="activity-time">Yesterday</span></div>
+          <div class="activity-row"><div class="dot"></div>Nava Labs AI tool beta launched<span class="activity-time">3 days ago</span></div>
+          <div class="activity-row"><div class="dot"></div>SEC enterprise contract awarded<span class="activity-time">1 week ago</span></div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="panel-qa">
+    <div class="qa-container">
+      <div class="qa-header">
+        <span class="qa-title">QA Exercise</span>
+        <button class="btn-clear" onclick="clearAll()">Clear all</button>
+      </div>
+      <div class="card">
+        <p class="card-label">Acceptance Criteria</p>
+        <h2 class="section-title">What does "done" look like?</h2>
+        <textarea id="acceptance-criteria" placeholder="Given [a condition]&#10;When [an action is performed]&#10;Then [an outcome is expected]"></textarea>
+        <p class="hint">Define the conditions that must be true for the login feature to be considered complete.</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Test Cases</p>
+        <h2 class="section-title">Steps &amp; expected results</h2>
+        <div class="tests-container" id="tests-container"></div>
+        <div style="margin-top: 1rem;">
+          <button class="btn-add-test" onclick="addTest()">+ Add test</button>
+        </div>
+      </div>
+      <div class="card">
+        <p class="card-label">Bug Report</p>
+        <h2 class="section-title">Describe what you found</h2>
+        <textarea id="bug-report" placeholder="Write your bug report here."></textarea>
+        <p class="hint">Include steps to reproduce, observed behavior, and expected behavior.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
 var pwInput = document.getElementById('password');
 var unInput = document.getElementById('username');
+var testCount = 0;
+var rowCounters = {};
 
 pwInput.addEventListener('input', function() {
   pwInput.type = /[^a-zA-Z0-9]/.test(pwInput.value) ? 'text' : 'password';
@@ -142,47 +256,28 @@ function clearErrors() {
   ['username','password'].forEach(function(f) {
     document.getElementById(f).classList.remove('invalid');
     var e = document.getElementById(f+'-error');
-    e.textContent = '';
-    e.classList.remove('visible');
+    e.textContent = ''; e.classList.remove('visible');
   });
 }
 
 function showError(field, msg) {
   document.getElementById(field).classList.add('invalid');
   var e = document.getElementById(field+'-error');
-  e.textContent = msg;
-  e.classList.add('visible');
+  e.textContent = msg; e.classList.add('visible');
 }
 
 function handleLogin() {
   clearErrors();
-  var u = unInput.value;
-  var p = pwInput.value;
-  var valid = true;
-
-  if (!u) {
-    showError('username', 'This field is required');
-    valid = false;
-} else if (u.length < 5 || u.length > 30 || !/^[a-zA-Z. ]*(@[a-zA-Z. ]*)?$/.test(u)) {
-    showError('username', 'Invalid username/password');
-    valid = false;
-  }
-
-  if (!p) {
-    showError('password', 'This field is required');
-    valid = false;
-  } else if (p.length < 5 || p.length > 10 || !/^[a-zA-Z!@#$%]+$/.test(p)) {
-    showError('password', 'Invalid username/password');
-    valid = false;
-  }
-
+  var u = unInput.value, p = pwInput.value, valid = true;
+  if (!u) { showError('username', 'This field is required'); valid = false; }
+  else if (u.length < 5 || u.length > 20 || !/^[a-zA-Z.]*(@[a-zA-Z.]*)?$/.test(u)) { showError('username', 'Invalid username/password'); valid = false; }
+  if (!p) { showError('password', 'This field is required'); valid = false; }
+  else if (p.length < 5 || p.length > 10 || !/^[a-zA-Z!@#$%]+$/.test(p)) { showError('password', 'Invalid username/password'); valid = false; }
   if (!valid) return;
-
   if (p === 'secret!') {
-    var welcome = document.getElementById('dash-welcome');
-    welcome.innerHTML = '<span class="admin-tag">ADMIN</span> Welcome, ' + u + '!';
+    document.getElementById('dash-welcome').innerHTML = '<span class="admin-tag">ADMIN</span> Welcome, ' + u + '!';
     document.getElementById('login-page').style.display = 'none';
-    document.getElementById('dashboard-page').style.display = 'block';
+    document.getElementById('dashboard-page').style.display = 'flex';
   } else {
     showError('username', 'Invalid username/password');
     showError('password', 'Invalid username/password');
@@ -192,9 +287,151 @@ function handleLogin() {
 function handleSignOut() {
   document.getElementById('dashboard-page').style.display = 'none';
   document.getElementById('login-page').style.display = 'flex';
-  unInput.value = '';
-  pwInput.value = '';
-  pwInput.type = 'password';
+  unInput.value = ''; pwInput.value = ''; pwInput.type = 'password';
   clearErrors();
 }
+
+function saveQA() {
+  try {
+    var tests = [];
+    document.querySelectorAll('.test-block').forEach(function(block) {
+      var name = block.querySelector('.test-name-input').value;
+      var rows = [];
+      block.querySelectorAll('tbody tr').forEach(function(tr) {
+        rows.push({
+          step: tr.cells[1].querySelector('input').value,
+          expected: tr.cells[2].querySelector('input').value,
+          result: tr.cells[3].querySelector('select').value
+        });
+      });
+      tests.push({ name: name, rows: rows });
+    });
+    localStorage.setItem('nava_qa', JSON.stringify({
+      ac: document.getElementById('acceptance-criteria').value,
+      bug: document.getElementById('bug-report').value,
+      tests: tests
+    }));
+  } catch(e) {}
+}
+
+function loadQA() {
+  try {
+    var raw = localStorage.getItem('nava_qa');
+    if (!raw) { addTest(); return; }
+    var data = JSON.parse(raw);
+    document.getElementById('acceptance-criteria').value = data.ac || '';
+    document.getElementById('bug-report').value = data.bug || '';
+    if (data.tests && data.tests.length) {
+      data.tests.forEach(function(t) {
+        var tc = addTest(true);
+        document.querySelector('#test-' + tc + ' .test-name-input').value = t.name || '';
+        var tbody = document.getElementById('tbody-' + tc);
+        tbody.innerHTML = '';
+        rowCounters[tc] = 0;
+        t.rows.forEach(function(r) {
+          var rId = addRow(tc, true);
+          var row = document.getElementById('row-' + rId);
+          row.cells[1].querySelector('input').value = r.step || '';
+          row.cells[2].querySelector('input').value = r.expected || '';
+          var sel = row.cells[3].querySelector('select');
+          sel.value = r.result || '';
+          applyResultStyle(sel);
+        });
+        renumberRows(tc);
+      });
+    } else { addTest(); }
+  } catch(e) { addTest(); }
+}
+
+function clearAll() {
+  if (!confirm('Clear all QA exercise content? This cannot be undone.')) return;
+  localStorage.removeItem('nava_qa');
+  document.getElementById('acceptance-criteria').value = '';
+  document.getElementById('bug-report').value = '';
+  document.getElementById('tests-container').innerHTML = '';
+  testCount = 0; rowCounters = {};
+  addTest();
+}
+
+function addTest(silent) {
+  testCount++;
+  var tc = testCount;
+  var container = document.getElementById('tests-container');
+  var block = document.createElement('div');
+  block.className = 'test-block'; block.id = 'test-' + tc;
+  block.innerHTML =
+    '<div class="test-block-header">' +
+      '<span class="test-num">Test ' + tc + '</span>' +
+      '<input class="test-name-input" type="text" placeholder="Test case name" oninput="saveQA()">' +
+      '<button class="delete-test" onclick="deleteTest(' + tc + ')">×</button>' +
+    '</div>' +
+    '<div class="test-block-body">' +
+      '<div class="table-wrap"><table>' +
+        '<thead><tr><th>#</th><th class="col-step">Action / Step</th><th class="col-expected">Expected Result</th><th class="col-result">Pass / Fail</th><th class="col-delete"></th></tr></thead>' +
+        '<tbody id="tbody-' + tc + '"></tbody>' +
+      '</table></div>' +
+      '<div class="row-actions"><button class="btn" onclick="addRow(' + tc + ')">+ Add step</button></div>' +
+    '</div>';
+  container.appendChild(block);
+  if (!silent) { addRow(tc); addRow(tc); addRow(tc); renumberTests(); }
+  return tc;
+}
+
+function deleteTest(id) {
+  var block = document.getElementById('test-' + id);
+  if (block) block.remove();
+  renumberTests(); saveQA();
+}
+
+function renumberTests() {
+  document.querySelectorAll('.test-block').forEach(function(b, i) {
+    b.querySelector('.test-num').textContent = 'Test ' + (i + 1);
+  });
+}
+
+function addRow(testId, silent) {
+  if (!rowCounters[testId]) rowCounters[testId] = 0;
+  rowCounters[testId]++;
+  var rId = testId + '_' + rowCounters[testId];
+  var tbody = document.getElementById('tbody-' + testId);
+  var tr = document.createElement('tr');
+  tr.id = 'row-' + rId;
+  tr.innerHTML =
+    '<td>' + (tbody.rows.length + 1) + '</td>' +
+    '<td><input type="text" placeholder="Step description" oninput="saveQA()"></td>' +
+    '<td><input type="text" placeholder="Expected result" oninput="saveQA()"></td>' +
+    '<td><select class="result-select" onchange="applyResultStyle(this);saveQA()">' +
+      '<option value="">—</option><option value="pass">Pass</option><option value="fail">Fail</option>' +
+    '</select></td>' +
+    '<td><button class="delete-row" onclick="deleteRow(\'' + rId + '\',' + testId + ')">×</button></td>';
+  tbody.appendChild(tr);
+  if (!silent) { renumberRows(testId); saveQA(); }
+  return rId;
+}
+
+function deleteRow(rId, testId) {
+  var row = document.getElementById('row-' + rId);
+  if (row) row.remove();
+  renumberRows(testId); saveQA();
+}
+
+function renumberRows(testId) {
+  var tbody = document.getElementById('tbody-' + testId);
+  if (!tbody) return;
+  Array.from(tbody.rows).forEach(function(row, i) { row.cells[0].textContent = i + 1; });
+}
+
+function applyResultStyle(sel) {
+  sel.className = 'result-select';
+  if (sel.value === 'pass') sel.classList.add('pass');
+  if (sel.value === 'fail') sel.classList.add('fail');
+}
+
+document.getElementById('acceptance-criteria').addEventListener('input', saveQA);
+document.getElementById('bug-report').addEventListener('input', saveQA);
+
+loadQA();
 </script>
+
+</body>
+</html>
