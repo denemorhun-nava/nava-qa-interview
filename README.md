@@ -28,14 +28,14 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
 - Required field
 - Username must be greater than 5 characters and less than 21 in length
 - Does **not** allow **spaces**
-- Only **alpha** characters and the following special characters **'@'** and **'.'** are allowed
-- Only a **single instance** of '**@**' is allowed
+- Only **alphanumeric** characters and the following special characters **'@'** and **'.'** are allowed (i.e. abc123@navapbc.com)
+- Only a **single instance** of '**@**' is allowed. 
+- Username is case insensitive. 
 
 ### Password Field
-- Required field
+- Required field 
 - Must always be masked
 - Password must be greater than 5 characters and less than 11 in length
-- Only allows **alpha** characters and the following special characters: **! @ # $ %**
 
 ### Sign-in Button
   - Clickable
@@ -49,9 +49,9 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
 
 ### Dashboard
 - Entering any valid username and **secret!** in password field will enable user to authenticate
-- User should be greeted with the username used to log in
+- User should be **greeted** with the username used to log in
 - Dashboard is only for **STANDARD** user view for this exercise
-- Only clicking sign-out should end the session
+- Clicking **sign-out** should end the session
 
 ### Backend / Account Behavior for E2E Scenarios
 The backend may return different outcomes depending on the user account.
@@ -92,10 +92,8 @@ The backend may return different outcomes depending on the user account.
 |--------|----------|-------|
 | GET | `/v1/user/login?username=<username>&password=<password>` | Password-based login |
 | GET | `/v1/user/login?token=<token>` | Token-based login |
-| POST | `/v1/user/account/create` | Body: `{ username, password, email }` |
-| POST | `/v1/user/account/account_email` | Body: `{ username, type }` |
-
-`email_type` accepts: `"forgot_password"` or `"forgot_username"`
+| POST | `/v1/user/account/create` | Out of scope |
+| POST | `/v1/user/account/account_email` | Out of scope |
 
 ---
 
