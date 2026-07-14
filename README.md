@@ -94,8 +94,8 @@ The backend may return different outcomes depending on the user account.
 |--------|----------|-------|
 | GET | `/v1/user/login?username=<username>&password=<password>` | Password-based login |
 | GET | `/v1/user/login?token=<token>` | Token-based login |
-| POST | `/v1/user/account/create` | Out of scope |
-| POST | `/v1/user/account/account_email` | Out of scope |
+| POST | `/v1/user/account/sign_up` | Out of scope |
+| POST | `/v1/user/account/forget_login` | Out of scope |
 
 ---
 
