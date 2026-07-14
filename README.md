@@ -36,6 +36,7 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
 - Required field 
 - Must always be masked
 - Password must be greater than 5 characters and less than 11 in length
+- Entering any valid username and **secret!** in password field will enable user to authenticate
 
 ### Sign-in Button
   - Clickable
@@ -48,7 +49,6 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
   - `"Invalid username/password"`
 
 ### Dashboard
-- Entering any valid username and **secret!** in password field will enable user to authenticate
 - User should be **greeted** with the username used to log in
 - Dashboard is only for **STANDARD** user view for this exercise
 - Clicking **sign-out** should end the session
