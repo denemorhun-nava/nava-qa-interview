@@ -53,16 +53,9 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
   - `"Invalid username/password"`
 
 ### Dashboard
-- User should be **greeted** with the username used to log in
+- User should be greeted with the username used to log in
 - Dashboard is only for **STANDARD** user view for this exercise
 - Clicking **sign-out** should end the session
-
-### Backend / Account Behavior for E2E Scenarios
-The backend may return different outcomes depending on the user account.
-- Valid active user
-- Locked/Disabled account
-- Different user roles or account types
-- Token-based login
 
 ## Screenshots
 ![Login page](UI.png)
@@ -100,7 +93,14 @@ The backend may return different outcomes depending on the user account.
 | POST | `/v1/user/account/forget_login` | Out of scope |
 
 ---
-
+### Backend / Account Behavior for E2E Scenarios
+The dashboard view should be different based on the user account. 
+DB would return different outcomes for different states. 
+- Valid active user
+- Locked/Disabled account
+- Different user roles such as standard or admin
+- Token-based login
+  
 ## Database Schema
 
 The backend and database are mocked for interview purposes. Assume the Users table controls account state, role, failed login behavior, and last successful login tracking.
