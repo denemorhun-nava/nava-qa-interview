@@ -25,6 +25,7 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 Clarify **scope**, UI validations, authentication behavior, user account states/roles,  error handling, and any missing requirements before testing.
 
 ### Username Field
+- Try any valid combination of characters. 
 - Required field
 - Username must be greater than 5 characters and less than 21 in length
 - Does **not** allow **spaces**
@@ -33,15 +34,16 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
 - Username is case insensitive. 
 
 ### Password Field
+- Try any valid combination of characters. 
 - Required field 
 - Must always be masked
 - Password must be greater than 5 characters and less than 11 in length
-- Entering any valid username and **secret!** in password field will enable user to authenticate
 
 ### Sign-in Button
   - Clickable
 
 ### Page-level validations
+- **Entering any valid username and **secret!** in password field will enable user to authenticate**
 - Validations are performed when **Sign in** is clicked
 - Validation messages appear under the field they apply to
 - Validation messages:
