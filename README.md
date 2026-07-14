@@ -34,7 +34,9 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
 - Username is case insensitive. 
 
 ### Password Field
-- Try any valid combination of characters. 
+- **secret!** is a valid password
+- Try any valid combination of characters.
+- Supports alphanumeric characters
 - Required field 
 - Must always be masked
 - Password must be greater than 5 characters and less than 11 in length
