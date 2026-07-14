@@ -43,7 +43,7 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
   - Clickable
 
 ### Page-level validations
-- **Entering any valid username and **secret!** in password field will enable user to authenticate**
+- Entering any valid username and the string **secret!** in password field will enable user to authenticate
 - Validations are performed when **Sign in** is clicked
 - Validation messages appear under the field they apply to
 - Validation messages:
