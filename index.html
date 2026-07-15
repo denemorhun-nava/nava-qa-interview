@@ -270,7 +270,7 @@ function handleLogin() {
   clearErrors();
   var u = unInput.value, p = pwInput.value, valid = true;
   if (!u) { showError('username', 'This field is required'); valid = false; }
-  else if (u.length < 5 || u.length > 20 || !/^[a-zA-Z. ]*(@[a-zA-Z. ]*)?$/.test(u)) { showError('username', 'Invalid username/password'); valid = false; }
+  else if (u.length < 5 || u.length > 20 || !/^[a-zA-Z0-9. ]*(@[a-zA-Z0-9. ]*)?$/.test(u) { showError('username', 'Invalid username/password'); valid = false; }
   if (!p) { showError('password', 'This field is required'); valid = false; }
   else if (p.length < 5 || p.length > 10 || !/^[a-zA-Z!@#$%]+$/.test(p)) { showError('password', 'Invalid username/password'); valid = false; }
   if (!valid) return;
