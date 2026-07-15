@@ -2,7 +2,7 @@
 
 ## Goal
 
-Your goal is to **design a test strategy** for the login flow, not just test the login form. 
+Your goal is to **design a test strategy** for the **Login Flow**. 
 
 During this exercise:
 - Align on Acceptance Criteria
@@ -11,9 +11,9 @@ During this exercise:
 
 ## Context
 
-You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/).
+You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.github.io/nava-qa-interview/), not just the login *form*.
 
-- Users must log in before accessing the dashboard or continuing their main workflow.
+- Users must log in before accessing the dashboard or continuing their workflow.
 - Login is handled through a mocked backend API and user data store.
 - The login page has frontend field validations for username and password.
 - After the user clicks Sign-in, the mocked backend determines whether the user has access.
@@ -22,23 +22,20 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
 
 ## Requirements
 
-Clarify **scope**, UI validations, authentication behavior, user account states/roles,  error handling, and any missing requirements before testing.
+**!** Clarify **scope**, authentication behavior, UI validations and any missing requirements before testing.
 
 ### Username Field
-- Try any valid combination of characters. 
 - Required field
 - Username must be greater than 5 characters and less than 21 in length
 - Does **not** allow **spaces**
-- Only **alphanumeric** characters and the following special characters **'@'** and **'.'** are allowed (i.e. abc123@navapbc.com)
-- Only a **single instance** of '**@**' is allowed. 
+- Only **alphanumeric** characters, **'.'** and a single instance of **'@'** are allowed (i.e. abc.123@navapbc.com)
 - Username is case insensitive. 
 
 ### Password Field
-- **secret!** is a valid password
-- Try any valid combination of characters.
-- Supports alphanumeric characters
 - Required field 
-- Must always be masked
+- **secret!** is the test password to view dashboard
+- Supports alphanumeric characters
+- Must always be **masked**
 - Password must be greater than 5 characters and less than 11 in length
 
 ### Sign-in Button
@@ -53,6 +50,7 @@ Clarify **scope**, UI validations, authentication behavior, user account states/
   - `"Invalid username/password"`
 
 ### Dashboard
+- - **secret!** is the test password to view dashboard
 - User should be greeted with the username used to log in
 - Dashboard is only for **STANDARD** user view for this exercise
 - Clicking **sign-out** should end the session
