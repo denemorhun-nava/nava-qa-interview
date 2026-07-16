@@ -50,7 +50,7 @@ You are testing the Login Flow for a [NAVA application](https://denemorhun-nava.
   - `"Invalid username/password"`
 
 ### Dashboard
-- - **secret!** is the test password to view dashboard
+- **secret!** is the test password to view dashboard
 - User should be greeted with the username used to log in
 - Dashboard is only for **STANDARD** user view for this exercise
 - Clicking **sign-out** should end the session
