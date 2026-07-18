@@ -7,26 +7,38 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/eclipse.min.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: hidden; }
-    body { font-family: 'DM Mono', monospace; background: #f5f4f0; display: flex; flex-direction: column; }
-    .topbar { height: 48px; background: #ffffff; border-bottom: 1px solid #e0deda; display: flex; align-items: center; padding: 0 1.5rem; flex-shrink: 0; justify-content: space-between; }
-    .topbar-logo svg { width: 56px; height: auto; }
-    .topbar-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; }
+    body { font-family: 'DM Mono', monospace; background: #f5f4f0; display: flex; flex-direction: column; transition: background 0.2s, color 0.2s; }
+
+    body.dark { background: #1a1a18; color: #e8e6e0; }
+
+    /* Topbar */
+    /* Theme toggle */
+    .theme-toggle { font-family: 'DM Mono', monospace; font-size: 11px; background: none; border: 1px solid #e0deda; border-radius: 20px; padding: 4px 12px; cursor: pointer; color: #6b6a65; transition: all 0.15s; }
+    .theme-toggle:hover { border-color: #b4b2a9; color: #1a1a18; }
+    body.dark .theme-toggle { border-color: #3a3a36; color: #9a9890; }
+    body.dark .theme-toggle:hover { border-color: #6b6a65; color: #e8e6e0; }
     .split { display: flex; flex: 1; overflow: hidden; }
-    .panel-app { width: 520px; min-width: 460px; flex-shrink: 0; border-right: 3px solid #d3d1c7; background: #eceae4; overflow-y: auto; display: flex; flex-direction: column; }
-    .panel-qa { flex: 1; overflow-y: auto; background: #f5f4f0; padding: 1.5rem; }
+    .panel-app { width: 520px; min-width: 460px; flex-shrink: 0; border-right: 3px solid #d3d1c7; background: #eceae4; overflow-y: auto; display: flex; flex-direction: column; transition: background 0.2s, border-color 0.2s; }
+    body.dark .panel-app { background: #1e1e1b; border-color: #2e2e2a; }
+    .panel-qa { flex: 1; overflow-y: auto; background: #f5f4f0; padding: 1.5rem; transition: background 0.2s; }
+    body.dark .panel-qa { background: #1a1a18; }
 
     /* Login */
     .app-page { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 2.5rem 1.5rem; }
-    .login-container { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 2.5rem; width: 100%; max-width: 400px; }
+    .login-container { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 2.5rem; width: 100%; max-width: 400px; transition: background 0.2s, border-color 0.2s; }
+    body.dark .login-container { background: #111110; border-color: #2e2e2a; }
     .nava-logo { margin-bottom: 1.75rem; }
     .nava-logo svg { width: 72px; height: auto; }
-    h2.login-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; letter-spacing: -0.5px; margin-bottom: 1.5rem; }
+    h2.login-title { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; letter-spacing: -0.5px; margin-bottom: 1.5rem; transition: color 0.2s; }
+    body.dark h2.login-title { color: #e8e6e0; }
     .form-group { margin-bottom: 1.25rem; }
     label.field-label { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; margin-bottom: 6px; }
-    input[type=text], input[type=password] { width: 100%; padding: 0 12px; height: 42px; background: #ffffff; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 14px; color: #1a1a18; outline: none; transition: border-color 0.15s; }
+    input[type=text], input[type=password] { width: 100%; padding: 0 12px; height: 42px; background: #ffffff; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 14px; color: #1a1a18; outline: none; transition: border-color 0.15s, background 0.2s, color 0.2s; }
+    body.dark input[type=text], body.dark input[type=password] { background: #1e1e1b; color: #e8e6e0; border-color: #1D9E75; }
     input[type=text]:focus, input[type=password]:focus { border-color: #0f6e56; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
     input.invalid { border-color: #e24b4a; }
     .field-error { display: none; font-size: 11px; color: #e24b4a; margin-top: 5px; }
@@ -34,33 +46,45 @@
     .link-wrap { position: relative; display: inline-block; }
     .link { font-family: 'DM Mono', monospace; font-size: 12px; color: #1D9E75; cursor: pointer; background: none; border: none; padding: 0; }
     .link:hover { text-decoration: underline; }
-    .tooltip { display: none; position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%); background: #ffffff; border: 1px solid #d3d1c7; border-radius: 8px; padding: 7px 11px; font-size: 11px; font-style: italic; color: #6b6a65; white-space: nowrap; z-index: 10; }
+    .tooltip { display: none; position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%); background: #ffffff; border: 1px solid #d3d1c7; border-radius: 8px; padding: 7px 11px; font-size: 11px; font-style: italic; color: #6b6a65; white-space: nowrap; z-index: 10; transition: background 0.2s; }
+    body.dark .tooltip { background: #1e1e1b; border-color: #3a3a36; color: #9a9890; }
     .tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #d3d1c7; }
+    body.dark .tooltip::after { border-top-color: #3a3a36; }
     .tooltip.visible { display: block; }
     .btn-submit { width: 100%; height: 42px; background: #ffffff; color: #1D9E75; border: 2px solid #1D9E75; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; transition: background 0.15s, color 0.15s; margin-bottom: 0.75rem; }
+    body.dark .btn-submit { background: #1e1e1b; }
     .btn-submit:hover { background: #1D9E75; color: #ffffff; }
     .btn-submit:active { transform: scale(0.98); }
     .forgot-row { text-align: center; margin-bottom: 1rem; }
     .divider { border: none; border-top: 1px solid #e0deda; margin: 1.5rem 0; }
+    body.dark .divider { border-color: #2e2e2a; }
     .signup-section { text-align: center; font-size: 12px; color: #6b6a65; }
 
     /* Dashboard */
     .dashboard { display: none; flex-direction: column; flex: 1; }
-    .dash-nav { background: #ffffff; border-bottom: 1px solid #e0deda; padding: 0 1.5rem; height: 54px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .dash-nav-title { font-family: 'DM Serif Display', serif; font-size: 19px; font-weight: 400; color: #1a1a18; }
+    .dash-nav { background: #ffffff; border-bottom: 1px solid #e0deda; padding: 0 1.5rem; height: 54px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; transition: background 0.2s, border-color 0.2s; }
+    body.dark .dash-nav { background: #111110; border-color: #2e2e2a; }
+    .dash-nav-title { font-family: 'DM Serif Display', serif; font-size: 19px; font-weight: 400; color: #1a1a18; transition: color 0.2s; }
+    body.dark .dash-nav-title { color: #e8e6e0; }
     .sign-out { font-family: 'DM Mono', monospace; font-size: 12px; color: #6b6a65; background: none; border: none; cursor: pointer; }
     .sign-out:hover { color: #1a1a18; }
+    body.dark .sign-out:hover { color: #e8e6e0; }
     .dash-body { padding: 1.5rem; overflow-y: auto; flex: 1; }
-    .dash-welcome { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; margin-bottom: 0.4rem; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .dash-welcome { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; margin-bottom: 0.4rem; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; transition: color 0.2s; }
+    body.dark .dash-welcome { color: #e8e6e0; }
     .admin-tag { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ffffff; background: #c0392b; padding: 5px 14px; border-radius: 5px; display: inline-block; flex-shrink: 0; }
     .dash-sub { font-size: 13px; color: #6b6a65; margin-bottom: 1.5rem; }
     .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.5rem; }
-    .metric { background: #eeece7; border-radius: 8px; padding: 0.9rem; }
+    .metric { background: #eeece7; border-radius: 8px; padding: 0.9rem; transition: background 0.2s; }
+    body.dark .metric { background: #252522; }
     .metric-label { font-size: 10px; color: #6b6a65; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px; }
-    .metric-value { font-size: 22px; font-weight: 500; color: #1a1a18; }
-    .dash-card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 1.1rem; }
+    .metric-value { font-size: 22px; font-weight: 500; color: #1a1a18; transition: color 0.2s; }
+    body.dark .metric-value { color: #e8e6e0; }
+    .dash-card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; padding: 1.1rem; transition: background 0.2s, border-color 0.2s; }
+    body.dark .dash-card { background: #111110; border-color: #2e2e2a; }
     .dash-card-title { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6b6a65; margin-bottom: 0.75rem; }
-    .activity-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #e0deda; font-size: 13px; color: #1a1a18; }
+    .activity-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #e0deda; font-size: 13px; color: #1a1a18; transition: color 0.2s, border-color 0.2s; }
+    body.dark .activity-row { color: #c8c6be; border-color: #2e2e2a; }
     .activity-row:last-child { border-bottom: none; }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: #1D9E75; flex-shrink: 0; }
     .activity-time { margin-left: auto; font-size: 11px; color: #6b6a65; }
@@ -68,9 +92,11 @@
     /* QA Panel */
     .qa-container { max-width: 720px; display: flex; flex-direction: column; gap: 1.25rem; }
     .qa-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid #e0deda; margin-bottom: 0.25rem; }
-    .qa-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: #1a1a18; }
+    .qa-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: #1a1a18; transition: color 0.2s; }
+    body.dark .qa-title { color: #e8e6e0; }
     .btn-clear { font-family: 'DM Mono', monospace; font-size: 11px; color: #a32d2d; background: #fff0f0; border: 1.5px solid #F09595; border-radius: 7px; padding: 5px 12px; cursor: pointer; }
     .btn-clear:hover { background: #ffe0e0; }
+    body.dark .btn-clear { background: #2a1515; border-color: #7a3030; color: #f09595; }
 
     /* Section dividers */
     .section-group { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -80,27 +106,34 @@
     .section-group-title.sdet { color: #6d4aff; }
     .section-group-line { display: none; }
 
-    .card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; overflow: hidden; }
+    .card { background: #ffffff; border: 1px solid #e0deda; border-radius: 12px; overflow: hidden; transition: background 0.2s, border-color 0.2s; }
+    body.dark .card { background: #111110; border-color: #2e2e2a; }
     .card.sdet-card { border-color: #ddd6fe; }
-    .card-header { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.25rem; cursor: pointer; user-select: none; }
+    body.dark .card.sdet-card { border-color: #3d2e6e; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.25rem; cursor: pointer; user-select: none; transition: background 0.15s; }
     .card-header:hover { background: #fafaf8; }
+    body.dark .card-header:hover { background: #1e1e1b; }
     .card-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a65; margin-bottom: 0; font-weight: 700; }
     .card-header-right { display: flex; align-items: center; gap: 8px; }
     .chevron { font-size: 11px; color: #b4b2a9; transition: transform 0.2s; display: inline-block; }
     .chevron.open { transform: rotate(180deg); }
     .card-body { padding: 0 1.25rem 1.25rem; }
     .section-title { font-family: 'DM Serif Display', serif; font-size: 16px; font-weight: 400; color: #1a1a18; margin-bottom: 0.75rem; }
-    textarea { width: 100%; min-height: 100px; padding: 10px; font-family: 'DM Mono', monospace; font-size: 12px; color: #1a1a18; background: #fafaf8; border: 1.5px solid #1D9E75; border-radius: 8px; resize: vertical; outline: none; line-height: 1.6; }
+    textarea { width: 100%; min-height: 100px; padding: 10px; font-family: 'DM Mono', monospace; font-size: 12px; color: #1a1a18; background: #fafaf8; border: 1.5px solid #1D9E75; border-radius: 8px; resize: vertical; outline: none; line-height: 1.6; transition: background 0.2s, color 0.2s; }
+    body.dark textarea { background: #1e1e1b; color: #e8e6e0; }
     textarea:focus { border-color: #0f6e56; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
     textarea::placeholder { color: #b4b2a9; font-style: italic; }
     .hint { font-size: 10px; color: #b4b2a9; margin-top: 5px; }
 
     /* Test cases */
     .tests-container { display: flex; flex-direction: column; gap: 1rem; }
-    .test-block { border: 1px solid #e0deda; border-radius: 10px; overflow: hidden; }
-    .test-block-header { background: #f5f4f0; padding: 8px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e0deda; }
+    .test-block { border: 1px solid #e0deda; border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
+    body.dark .test-block { border-color: #2e2e2a; }
+    .test-block-header { background: #f5f4f0; padding: 8px 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e0deda; transition: background 0.2s, border-color 0.2s; }
+    body.dark .test-block-header { background: #1e1e1b; border-color: #2e2e2a; }
     .test-num { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: #6b6a65; white-space: nowrap; }
-    .test-name-input { flex: 1; padding: 5px 9px; font-family: 'DM Mono', monospace; font-size: 12px; color: #1a1a18; background: #ffffff; border: 1.5px solid #e0deda; border-radius: 6px; outline: none; }
+    .test-name-input { flex: 1; padding: 5px 9px; font-family: 'DM Mono', monospace; font-size: 12px; color: #1a1a18; background: #ffffff; border: 1.5px solid #e0deda; border-radius: 6px; outline: none; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    body.dark .test-name-input { background: #111110; color: #e8e6e0; border-color: #3a3a36; }
     .test-name-input:focus { border-color: #1D9E75; }
     .test-name-input::placeholder { color: #c8c6be; }
     .delete-test { background: none; border: none; color: #d3d1c7; font-size: 16px; cursor: pointer; padding: 3px 5px; margin-left: auto; }
@@ -108,26 +141,35 @@
     .test-block-body { padding: 10px 12px 12px; }
     .table-wrap { overflow-x: auto; margin-bottom: 8px; }
     table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    thead tr { background: #f9f8f6; }
-    th { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: #6b6a65; font-weight: 500; padding: 7px 8px; text-align: left; border-bottom: 1px solid #e0deda; }
+    thead tr { background: #f9f8f6; transition: background 0.2s; }
+    body.dark thead tr { background: #1e1e1b; }
+    th { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: #6b6a65; font-weight: 500; padding: 7px 8px; text-align: left; border-bottom: 1px solid #e0deda; transition: border-color 0.2s; }
+    body.dark th { border-color: #2e2e2a; }
     th:first-child { width: 36px; text-align: center; }
     th.col-step { width: 36%; }
     th.col-expected { width: 36%; }
     th.col-result { width: 88px; }
     th.col-delete { width: 32px; }
-    td { padding: 4px 5px; vertical-align: middle; border-bottom: 1px solid #f0efeb; }
+    td { padding: 4px 5px; vertical-align: middle; border-bottom: 1px solid #f0efeb; transition: border-color 0.2s; }
+    body.dark td { border-color: #252522; }
     td:first-child { text-align: center; color: #b4b2a9; font-size: 11px; user-select: none; }
-    td input[type=text] { width: 100%; padding: 5px 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: #1a1a18; background: #fafaf8; border: 1.5px solid #e0deda; border-radius: 6px; outline: none; }
+    td input[type=text] { width: 100%; padding: 5px 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: #1a1a18; background: #fafaf8; border: 1.5px solid #e0deda; border-radius: 6px; outline: none; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    body.dark td input[type=text] { background: #1e1e1b; color: #e8e6e0; border-color: #3a3a36; }
     td input[type=text]:focus { border-color: #1D9E75; }
     td input[type=text]::placeholder { color: #c8c6be; }
-    .result-select { width: 100%; padding: 5px 8px; font-family: 'DM Mono', monospace; font-size: 11px; border: 1.5px solid #e0deda; border-radius: 6px; background: #fafaf8; color: #6b6a65; outline: none; cursor: pointer; appearance: none; text-align: center; }
+    .result-select { width: 100%; padding: 5px 8px; font-family: 'DM Mono', monospace; font-size: 11px; border: 1.5px solid #e0deda; border-radius: 6px; background: #fafaf8; color: #6b6a65; outline: none; cursor: pointer; appearance: none; text-align: center; transition: background 0.2s, border-color 0.2s; }
+    body.dark .result-select { background: #1e1e1b; border-color: #3a3a36; color: #9a9890; }
     .result-select.pass { background: #e8f7f1; color: #0f6e56; border-color: #9FE1CB; }
     .result-select.fail { background: #fff0f0; color: #a32d2d; border-color: #F09595; }
+    body.dark .result-select.pass { background: #0d2e22; color: #4ade80; border-color: #1a5c3a; }
+    body.dark .result-select.fail { background: #2a1515; color: #f09595; border-color: #7a3030; }
     .delete-row { background: none; border: none; color: #d3d1c7; font-size: 15px; cursor: pointer; padding: 4px; line-height: 1; }
     .delete-row:hover { color: #e24b4a; }
     .row-actions { display: flex; gap: 8px; }
-    .btn { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 6px 12px; border-radius: 7px; cursor: pointer; border: 1.5px solid #1D9E75; background: #ffffff; color: #1D9E75; }
+    .btn { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 6px 12px; border-radius: 7px; cursor: pointer; border: 1.5px solid #1D9E75; background: #ffffff; color: #1D9E75; transition: background 0.15s; }
+    body.dark .btn { background: #111110; }
     .btn:hover { background: #f0faf6; }
+    body.dark .btn:hover { background: #0d2e22; }
     .btn-add-test { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 7px 16px; border-radius: 7px; cursor: pointer; background: #1D9E75; color: #ffffff; border: none; }
     .btn-add-test:hover { background: #0f6e56; }
 
@@ -135,8 +177,10 @@
     .code-review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
     .modified-badge { display: none; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #b45309; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 5px; padding: 2px 8px; }
     .modified-badge.visible { display: inline-block; }
-    .btn-reset-code { font-family: 'DM Mono', monospace; font-size: 10px; color: #6b6a65; background: none; border: 1px solid #e0deda; border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+    .btn-reset-code { font-family: 'DM Mono', monospace; font-size: 10px; color: #6b6a65; background: none; border: 1px solid #e0deda; border-radius: 6px; padding: 3px 9px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+    body.dark .btn-reset-code { border-color: #3a3a36; color: #9a9890; }
     .btn-reset-code:hover { border-color: #b4b2a9; color: #1a1a18; }
+    body.dark .btn-reset-code:hover { border-color: #6b6a65; color: #e8e6e0; }
     .cm-wrap { border-radius: 8px; overflow: hidden; border: 1.5px solid #2d2d2d; transition: border-color 0.2s; }
     .cm-wrap.modified { border-color: #f59e0b; }
     .CodeMirror { font-family: 'DM Mono', monospace; font-size: 12px; line-height: 1.75; height: auto; min-height: 260px; border-radius: 8px; }
@@ -152,15 +196,7 @@
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-logo">
-    <svg viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nava">
-      <text x="0" y="28" font-family="Georgia, serif" font-size="32" font-weight="700" letter-spacing="-0.5" fill="#1D9E75">Nava</text>
-      <rect x="0" y="33" width="20" height="2.5" rx="1" fill="#1D9E75"/>
-    </svg>
-  </div>
-  <span class="topbar-label">QA Interview Exercise</span>
-</div>
+
 
 <div class="split">
 
@@ -242,7 +278,10 @@
 
       <div class="qa-header">
         <span class="qa-title">QA Exercise</span>
-        <button class="btn-clear" onclick="clearAll()">Clear all</button>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">Dark</button>
+          <button class="btn-clear" onclick="clearAll()">Clear all</button>
+        </div>
       </div>
 
       <!-- Manual QA -->
@@ -321,6 +360,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
 <script>
+function toggleTheme() {
+  var isDark = document.body.classList.toggle('dark');
+  document.getElementById('theme-btn').textContent = isDark ? 'Light' : 'Dark';
+  editor.setOption('theme', isDark ? 'dracula' : 'eclipse');
+  localStorage.setItem('nava_theme', isDark ? 'dark' : 'light');
+}
+
+// Restore theme on load
+if (localStorage.getItem('nava_theme') === 'dark') {
+  document.body.classList.add('dark');
+  document.getElementById('theme-btn').textContent = 'Light';
+}
+
 var pwInput = document.getElementById('password');
 var unInput = document.getElementById('username');
 var testCount = 0;
@@ -328,9 +380,10 @@ var rowCounters = {};
 
 var defaultCode = "test('standard user can log in', async ({ page }) => {\n  const username = 'standarduser';\n  await page.goto('/');\n  await page.locator('#username').fill(username);\n  page.locator('//input[@type=\"password\"]').fill('secret!');\n  page.locator('button').click();\n\n  page.waitForTimeout(3000);\n\n  expect(\n    await page.locator('.dashboard').isVisible()\n  ).toBeTruthy();\n\n  expect(\n    await page.locator('.welcome-message').textContent()\n  ).toBe(`Welcome, ${username}`);\n\n  expect(\n    await page.locator('.role').textContent()\n  ).toBe('STANDARD');\n});";
 
+var savedTheme = localStorage.getItem('nava_theme');
 var editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
   mode: 'javascript',
-  theme: 'dracula',
+  theme: savedTheme === 'dark' ? 'dracula' : 'eclipse',
   lineNumbers: true,
   tabSize: 2,
   indentWithTabs: false,
